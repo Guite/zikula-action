@@ -27,7 +27,7 @@ RUN apk update && apk add \
 # see https://pkgs.alpinelinux.org/packages?name=*php*pcov*
 
 # install required additional releng tools
-RUN composer require \
+RUN composer require --dev \
     jakub-onderka/php-parallel-lint:^1 \
     jakub-onderka/php-console-highlighter:^0 \
     phpunit/phpunit:^8 \
