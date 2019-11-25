@@ -43,6 +43,7 @@ echo "Install Zikula Core version ${CORE_VERSION}"
 cd "${CORE_BRANCH}"
 php ${consoleCmd} zikula:install:start -n --database_user=root --database_name=zk_test --password=12345678 --email=admin@example.com --router:request_context:host=localhost
 php ${consoleCmd} zikula:install:finish
+mkdir -p "web/imagine/cache"
 
 echo "Install ${APP_NAME}"
 cd modules
@@ -57,7 +58,11 @@ if [ $CORE == "ZK30" || $CORE == "ZK3DEV" ]; then
 else
     mysql -e "INSERT INTO zk_test.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, core_min, core_max) VALUES (NULL, '${APP_NAME}', '3', '${APP_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}', '3.0.0');"
 fi
-php ${consoleCmd} cache:warmup
+
+php -d memory_limit=512M -d date.timezone="Europe/Berlin" ${consoleCmd} cache:warmup --env=prod --no-debug
+
+# dump js routes
+#php -d memory_limit=512M -d date.timezone="Europe/Berlin" ${consoleCmd} fos:js-routing:dump --env=prod --no-debug --locale=en
 
 #DATABASE_URL="mysql://root:zikula@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/zk_test"
 #echo "Run migration"

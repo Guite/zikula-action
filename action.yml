@@ -33,3 +33,6 @@ runs:
     - ${{ inputs.module-version }}
     - ${{ inputs.core-version }}
     - ${{ inputs.create-artifacts }}
+branding:
+  icon: 'check'
+  color: 'orange'

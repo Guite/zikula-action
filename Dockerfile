@@ -3,7 +3,7 @@ FROM php:7.3-alpine
 LABEL "com.github.actions.name"="Guite-Zikula-Action"
 LABEL "com.github.actions.description"="build and test Zikula modules"
 LABEL "com.github.actions.icon"="check"
-LABEL "com.github.actions.color"="blue"
+LABEL "com.github.actions.color"="orange"
 
 LABEL "repository"="https://github.com/Guite/zikula-action"
 LABEL "homepage"="https://github.com/actions"
@@ -47,5 +47,8 @@ RUN composer require --dev \
     wapmorgan/php-code-analyzer:^1
 
 COPY entrypoint.sh /entrypoint.sh
+# TODO consider using parameters / environment variables (example available)
+#COPY data/custom_parameters.yml /data/app/config/custom_parameters.yml
+#COPY data/generated.yml /data/app/config/dynamic/generated.yml
 
 ENTRYPOINT ["/entrypoint.sh"]
