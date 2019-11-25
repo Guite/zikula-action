@@ -1,5 +1,14 @@
 FROM php:7.3-alpine
 
+LABEL "com.github.actions.name"="Guite-Zikula-Action"
+LABEL "com.github.actions.description"="build and test Zikula modules"
+LABEL "com.github.actions.icon"="check"
+LABEL "com.github.actions.color"="blue"
+
+LABEL "repository"="https://github.com/Guite/zikula-action"
+LABEL "homepage"="https://github.com/actions"
+LABEL "maintainer"="Axel Guckelsberger <info@guite.de>"
+
 # Use the default development configuration
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 # Use the default production configuration
