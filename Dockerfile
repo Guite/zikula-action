@@ -15,11 +15,11 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 #RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # install php extensions and composer
-# xml is required by phpunit, php-ast is used by phan
+# xml is required by phpunit, xsl is required by phpqa, php-ast is used by phan
 # note we do not install phpunit, since composer installs Symfony's phpunit-bridge providing simple-phpunit
 RUN apk update && apk add \
     php7 php7-ctype php7-gd php7-iconv php7-json php7-mbstring php7-mysqli php7-mysqlnd \
-    php7-session php7-simplexml php7-tokenizer php7-xml php7-pecl-ast \
+    php7-session php7-simplexml php7-tokenizer php7-xml php7-xsl php7-pecl-ast \
     composer
 
 # note pcov is much faster than xdebug
