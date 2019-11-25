@@ -17,11 +17,14 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 # install php extensions and composer
 # xml is required by phpunit, php-ast is used by phan
 # note we do not install phpunit, since composer installs Symfony's phpunit-bridge providing simple-phpunit
-# note pcov is much faster than xdebug
 RUN apk update && apk add \
     php7 php7-ctype php7-gd php7-iconv php7-json php7-mbstring php7-mysqli php7-mysqlnd \
-    php7-session php7-simplexml php7-tokenizer php7-xml php7-pecl-ast php7-pecl-pcov \
+    php7-session php7-simplexml php7-tokenizer php7-xml php7-pecl-ast \
     composer
+
+# note pcov is much faster than xdebug
+# TODO php7-pecl-pcov package is not available in alpine 3.10 yet though (only in edge)
+# see https://pkgs.alpinelinux.org/packages?name=*php*pcov*
 
 # install required additional releng tools
 RUN composer require \
