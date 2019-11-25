@@ -76,7 +76,7 @@ if [ $CORE == "ZK30" || $CORE == "ZK3DEV" ]; then
     php ${consoleCmd} lint:container
 fi
 echo "Checks: YAML Linter"
-php ${consoleCmd} lint:yaml "${MODULE_PATH}/Resources"
+php ${consoleCmd} lint:yaml "${MODULE_PATH}/Resources" --parse-tags
 echo "Checks: Twig Linter"
 php ${consoleCmd} lint:twig @${APP_NAME}
 
