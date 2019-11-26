@@ -25,7 +25,7 @@ mkdir "work" && cd "work/"
 CORE_BRANCH=""
 CORE_VERSION=""
 echo "TEST: $CORE"
-if [ $CORE == "ZK20" ] || [ $CORE == "ZK15" ]; then
+if [ $CORE == "ZK20" ] -o [ $CORE == "ZK15" ]; then
     CORE_BRANCH=$(( $CORE == "ZK20" ? "2.0" : "1.5" ))
     CORE_VERSION=$(( $CORE == "ZK20" ? "2.0.15" : "1.5.9" ))
     echo "Download Zikula Core version ${CORE_VERSION} release"
@@ -33,11 +33,11 @@ if [ $CORE == "ZK20" ] || [ $CORE == "ZK15" ]; then
     tar -xpzf "${CORE_BRANCH}.tar.gz" && rm "${CORE_BRANCH}.tar.gz"
 else
     echo "TEST 1"
-    if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
+    if [ $CORE == "ZK30" ] -o [ $CORE == "ZK3DEV" ]; then
         echo "TEST 2"
         CORE_BRANCH="master"
         CORE_VERSION=${CORE_BRANCH}
-    elif [ $CORE == "ZK2DEV" ] || [ $CORE == "ZK15DEV" ]; then
+    elif [ $CORE == "ZK2DEV" ] -o [ $CORE == "ZK15DEV" ]; then
         echo "TEST 3"
         CORE_BRANCH=$(( $CORE == "ZK2DEV" ? "2.0" : "1.5" ))
         CORE_VERSION=${CORE_BRANCH}
@@ -48,7 +48,7 @@ else
 fi
 
 consoleCmd="bin/console"
-if [ $CORE == "ZK15" ] || [ $CORE == "ZK15DEV" ]; then
+if [ $CORE == "ZK15" ] -o [ $CORE == "ZK15DEV" ]; then
     consoleCmd="app/console"
 fi
 
@@ -63,7 +63,7 @@ mkdir "${MODULE_PATH}" && cd "${MODULE_PATH}"
 unzip -q ../../../../${APP_NAME}
 
 php ${consoleCmd} bootstrap:bundles
-if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
+if [ $CORE == "ZK30" ] -o [ $CORE == "ZK3DEV" ]; then
     mysql -e "INSERT INTO zk_test.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, coreCompatibility) VALUES (NULL, '${APP_NAME}', '3', '${MODULE_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}');"
 else
     mysql -e "INSERT INTO zk_test.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, core_min, core_max) VALUES (NULL, '${APP_NAME}', '3', '${APP_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}', '3.0.0');"
@@ -88,7 +88,7 @@ ${TOOL_BIN_PATH}phplint "${MODULE_PATH}" --exclude="${VENDOR_PATH}" -c="${TOOL_C
 # see https://github.com/JakubOnderka/PHP-Parallel-Lint
 ${TOOL_BIN_PATH}parallel-lint --colors --exclude "${VENDOR_PATH}" "${MODULE_PATH}"
 
-if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
+if [ $CORE == "ZK30" ] -o [ $CORE == "ZK3DEV" ]; then
     echo "Checks: Service container lint"
     php ${consoleCmd} lint:container
 fi
