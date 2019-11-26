@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh -l
 
 VENDOR_NAME=$1
 MODULE_NAME=$2
