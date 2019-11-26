@@ -59,11 +59,11 @@ elif [ $CORE == "ZK15DEV" ]; then
 fi
 
 cd "${CORE_DIRECTORY}"
-
 if [ $SRC_DIR != "" ]; then
-    cd "${SRC_DIR}"
     echo "Install core dependencies"
     composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+
+    cd "${SRC_DIR}"
 fi
 
 echo "Install Zikula Core version ${CORE_VERSION}"
