@@ -44,9 +44,20 @@ else
     CORE_DIRECTORY="core-${CORE_BRANCH}"
 fi
 tar -xpzf "${CORE_BRANCH}.tar.gz" && rm "${CORE_BRANCH}.tar.gz"
+SRC_DIR=""
+if [ $CORE == "ZK15DEV" ] || [ $CORE == "ZK2DEV" ] || [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
+    SRC_DIR="src/"
+fi
+if [ $SRC_DIR != "" ]; then
+    cd "${SRC_DIR}"
+fi
 
 consoleCmd="bin/console"
-if [ $CORE == "ZK15" ] || [ $CORE == "ZK15DEV" ]; then
+if [ $CORE == "ZK20" ]; then
+    consoleCmd="bin/console"
+elif [ $CORE == "ZK15" ]; then
+    consoleCmd="app/console"
+elif [ $CORE == "ZK15DEV" ]; then
     consoleCmd="app/console"
 fi
 
@@ -58,7 +69,11 @@ mkdir -p "web/imagine/cache"
 
 echo "Install ${APP_NAME}"
 mkdir "${MODULE_PATH}" && cd "${MODULE_PATH}"
-unzip -q ../../../../${APP_NAME}
+if [ $SRC_DIR != "" ]; then
+    unzip -q "../../../../../${APP_NAME}"
+else
+    unzip -q "../../../../${APP_NAME}"
+fi
 
 php ${consoleCmd} bootstrap:bundles
 if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
