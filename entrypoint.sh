@@ -9,25 +9,29 @@ CREATE_ARTIFACTS=$5
 echo "Starting process for ${MODULE_NAME}"
 
 APP_NAME="${VENDOR_NAME}${MODULE_NAME}Module"
-MODULE_PATH="${VENDOR_NAME}/${MODULE_NAME}Module"
-LC_VENDOR="$( echo "${VENDOR_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
+MODULE_PATH="modules/${VENDOR_NAME}/${MODULE_NAME}Module"
+VENDOR_PATH="${MODULE_PATH}/vendor"
 LC_MODULE="$( echo "${MODULE_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
+TOOL_BIN_PATH="/tools/.composer/vendor/bin/"
+TOOL_CONFIG_PATH="/tool-config/"
 
 echo "Install dependencies of ${MODULE_PATH}"
+cd "${MODULE_PATH}"
 composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 zip -qr ${APP_NAME}.zip .
+cd "../../../"
 
-if [ $CORE == "ZK2DEV" || $CORE == "ZK15DEV" ]; then
+if [ $CORE == "ZK2DEV" ] || [ $CORE == "ZK15DEV" ]; then
     CORE_BRANCH=$(( $CORE == "ZK2DEV" ? "2.0" : "1.5" ))
     CORE_VERSION=${CORE_BRANCH}
     echo "Download Zikula Core version ${CORE_VERSION} branch"
     wget "https://github.com/zikula/core/archive/${CORE_VERSION}.tar.gz"
     tar -xpzf "${CORE_VERSION}.tar.gz" && rm "${CORE_VERSION}.tar.gz"
 else
-    if [ $CORE == "ZK30" || $CORE == "ZK3DEV" ]; then
+    if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
         CORE_BRANCH="master"
         CORE_VERSION=${CORE_BRANCH}
-    elif [ $CORE == "ZK20" || $CORE == "ZK15" ]; then
+    elif [ $CORE == "ZK20" ] || [ $CORE == "ZK15" ]; then
         CORE_BRANCH=$(( $CORE == "ZK20" ? "2.0" : "1.5" ))
         CORE_VERSION=$(( $CORE == "ZK20" ? "2.0.15" : "1.5.9" ))
     fi
@@ -37,7 +41,7 @@ else
 fi
 
 consoleCmd="bin/console"
-if [ $CORE == "ZK15" || $CORE == "ZK15DEV" ]; then
+if [ $CORE == "ZK15" ] || [ $CORE == "ZK15DEV" ]; then
     consoleCmd="app/console"
 fi
 
@@ -48,15 +52,12 @@ php ${consoleCmd} zikula:install:finish
 mkdir -p "web/imagine/cache"
 
 echo "Install ${APP_NAME}"
-cd modules
-mkdir "${LC_VENDOR}" && cd "${LC_VENDOR}"
-mkdir "${LC_MODULE}-module" && cd "${LC_MODULE}-module"
+mkdir "${MODULE_PATH}" && cd "${MODULE_PATH}"
 unzip -q ../../../../${APP_NAME}
-cd  ../../..
 
 php ${consoleCmd} bootstrap:bundles
-if [ $CORE == "ZK30" || $CORE == "ZK3DEV" ]; then
-    mysql -e "INSERT INTO zk_test.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, coreCompatibility) VALUES (NULL, '${APP_NAME}', '3', '${APP_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}');"
+if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
+    mysql -e "INSERT INTO zk_test.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, coreCompatibility) VALUES (NULL, '${APP_NAME}', '3', '${MODULE_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}');"
 else
     mysql -e "INSERT INTO zk_test.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, core_min, core_max) VALUES (NULL, '${APP_NAME}', '3', '${APP_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}', '3.0.0');"
 fi
@@ -72,11 +73,6 @@ php ${consoleCmd} cache:warmup --env=prod --no-debug
 #php ${consoleCmd} doctrine:schema:update --force || echo "No migrations found or schema update failed"
 #php ${consoleCmd} doctrine:migrations:migrate || echo "No migrations found or migration failed"
 
-TOOL_BIN_PATH="/tools/.composer/vendor/bin/"
-TOOL_CONFIG_PATH="/tool-config/"
-MODULE_PATH="modules/${LC_VENDOR}/${LC_MODULE}-module"
-VENDOR_PATH="${MODULE_PATH}/vendor"
-
 # Available tools: https://github.com/jakzal/phpqa/#available-tools
 
 echo "Checks: PHP lint"
@@ -85,7 +81,7 @@ ${TOOL_BIN_PATH}phplint "${MODULE_PATH}" --exclude="${VENDOR_PATH}" -c="${TOOL_C
 # see https://github.com/JakubOnderka/PHP-Parallel-Lint
 ${TOOL_BIN_PATH}parallel-lint --colors --exclude "${VENDOR_PATH}" "${MODULE_PATH}"
 
-if [ $CORE == "ZK30" || $CORE == "ZK3DEV" ]; then
+if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
     echo "Checks: Service container lint"
     php ${consoleCmd} lint:container
 fi
