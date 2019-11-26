@@ -58,11 +58,15 @@ elif [ $CORE == "ZK15DEV" ]; then
     consoleCmd="app/console"
 fi
 
-echo "Install Zikula Core version ${CORE_VERSION}"
 cd "${CORE_DIRECTORY}"
+
 if [ $SRC_DIR != "" ]; then
     cd "${SRC_DIR}"
+    echo "Install core dependencies"
+    composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 fi
+
+echo "Install Zikula Core version ${CORE_VERSION}"
 php ${consoleCmd} zikula:install:start -n --database_user=root --database_name=zk_test --password=12345678 --email=admin@example.com --router:request_context:host=localhost
 php ${consoleCmd} zikula:install:finish
 mkdir -p "web/imagine/cache"
