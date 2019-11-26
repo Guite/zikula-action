@@ -110,7 +110,9 @@ if [ ${CREATE_ARTIFACTS} = true ]; then
     rm -Rf vendor
     rm -Rf .git
     composer install --no-dev --no-progress --no-suggest --prefer-dist --optimize-autoloader
-    zip -qr ${APP_NAME}.zip .
-    tar cfz ${APP_NAME}.tar.gz .
-    # TODO publish both artifacts
+    zip -qr "${APP_NAME}_v${APP_VERSION}.zip" .
+    tar cfz "${APP_NAME}_v${APP_VERSION}.tar.gz" .
+
+    echo ::set-output name=tar-archive::${APP_NAME}_v${APP_VERSION}.tar.gz
+    echo ::set-output name=zip-archive::${APP_NAME}_v${APP_VERSION}.zip
 fi

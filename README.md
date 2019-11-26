@@ -28,8 +28,11 @@ This action downloads and installs a specific Zikula core version in order to ch
 
 ## Outputs
 
-### `results`
-Module artifacts including vendor dependencies (zip and tar.gz archives) which can be used for a release.
+### `tar-archive`
+Module archive in `tar.gz` format including vendor dependencies which can be used for a release.
+
+### `zip-archive`
+Module archive in `zip` format including vendor dependencies which can be used for a release.
 
 ## Example usage
 
