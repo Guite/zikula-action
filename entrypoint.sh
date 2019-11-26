@@ -6,6 +6,8 @@ APP_VERSION=$3
 CORE=$4
 CREATE_ARTIFACTS=$5
 
+echo "Starting process for ${MODULE_NAME}"
+
 APP_NAME="${VENDOR_NAME}${MODULE_NAME}Module"
 MODULE_PATH="${VENDOR_NAME}/${MODULE_NAME}Module"
 LC_VENDOR="$(tr [A-Z] [a-z] <<< "${VENDOR_NAME}")"
