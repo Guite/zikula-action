@@ -66,7 +66,7 @@ if [ $SRC_DIR != "" ]; then
 fi
 
 echo "Install Zikula Core version ${CORE_VERSION}"
-php ${consoleCmd} zikula:install:start -n --database_user=root --database_name=zk_test --password=12345678 --email=admin@example.com --router:request_context:host=localhost
+php ${consoleCmd} zikula:install:start -n --database_user=zikula --database_name=zk_test --password=zikula --email=admin@example.com --router:request_context:host=localhost
 php ${consoleCmd} zikula:install:finish
 mkdir -p "web/imagine/cache"
 
