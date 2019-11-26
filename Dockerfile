@@ -14,13 +14,23 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 # Use the default production configuration
 #RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-# install php extensions and composer
+RUN php -m
+RUN php -i
+
+# install php extensions
 # xml is required by phpunit, xsl is required by phpqa, php-ast is used by phan
 # note we do not install phpunit, since composer installs Symfony's phpunit-bridge providing simple-phpunit
-RUN apk update && apk add \
-    php7 php7-ctype php7-gd php7-iconv php7-intl php7-json php7-mbstring php7-mysqli php7-mysqlnd \
-    php7-session php7-simplexml php7-tokenizer php7-xml php7-xsl php7-pecl-ast \
-    composer
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
+    bcmath ctype curl gd iconv intl json mbstring mcrypt \
+    mysqli mysqlnd pdo pdo_mysql session simplexml tokenizer \
+    xml xsl zip
+
+# install composer
+#RUN apk update && apk add \
+#    php7 php7-bcmath php7-ctype php7-curl php7-gd php7-iconv php7-intl php7-json php7-mbstring php7-mcrypt \
+#    php7-mysqli php7-mysqlnd php7-pdo php7-pdo_mysql php7-session php7-simplexml php7-tokenizer \
+#    php7-xml php7-xsl php7-zip php7-pecl-ast composer
 
 # note pcov is much faster than xdebug
 # TODO php7-pecl-pcov package is not available in alpine 3.10 yet though (only in edge)
