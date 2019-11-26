@@ -48,9 +48,6 @@ SRC_DIR=""
 if [ $CORE == "ZK15DEV" ] || [ $CORE == "ZK2DEV" ] || [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
     SRC_DIR="src/"
 fi
-if [ $SRC_DIR != "" ]; then
-    cd "${SRC_DIR}"
-fi
 
 consoleCmd="bin/console"
 if [ $CORE == "ZK20" ]; then
@@ -63,6 +60,9 @@ fi
 
 echo "Install Zikula Core version ${CORE_VERSION}"
 cd "${CORE_DIRECTORY}"
+if [ $SRC_DIR != "" ]; then
+    cd "${SRC_DIR}"
+fi
 php ${consoleCmd} zikula:install:start -n --database_user=root --database_name=zk_test --password=12345678 --email=admin@example.com --router:request_context:host=localhost
 php ${consoleCmd} zikula:install:finish
 mkdir -p "web/imagine/cache"
