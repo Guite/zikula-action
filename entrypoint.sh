@@ -12,7 +12,7 @@ APP_NAME="${VENDOR_NAME}${MODULE_NAME}Module"
 MODULE_PATH="modules/${VENDOR_NAME}/${MODULE_NAME}Module"
 VENDOR_PATH="${MODULE_PATH}/vendor"
 LC_MODULE="$( echo "${MODULE_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
-TOOL_BIN_PATH="/tools/.composer/vendor/bin/"
+TOOL_BIN_PATH=""
 TOOL_CONFIG_PATH="/tool-config/"
 
 echo "Install dependencies of ${MODULE_PATH}"
