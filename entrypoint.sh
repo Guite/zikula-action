@@ -72,7 +72,7 @@ php ${consoleCmd} zikula:install:finish
 mkdir -p "web/imagine/cache"
 
 echo "Install ${APP_NAME}"
-mkdir "${MODULE_PATH}" && cd "${MODULE_PATH}"
+mkdir -p "${MODULE_PATH}" && cd "${MODULE_PATH}"
 if [ $SRC_DIR != "" ]; then
     unzip -q "../../../../../${APP_NAME}"
 else
