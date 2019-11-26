@@ -20,9 +20,11 @@ cd "${MODULE_PATH}"
 composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 zip -qr ${APP_NAME}.zip .
 cd "../../../"
+mkdir "work" && cd "work/"
 
 CORE_BRANCH=""
 CORE_VERSION=""
+echo "TEST: $CORE"
 if [ $CORE == "ZK20" ] || [ $CORE == "ZK15" ]; then
     CORE_BRANCH=$(( $CORE == "ZK20" ? "2.0" : "1.5" ))
     CORE_VERSION=$(( $CORE == "ZK20" ? "2.0.15" : "1.5.9" ))
@@ -30,10 +32,13 @@ if [ $CORE == "ZK20" ] || [ $CORE == "ZK15" ]; then
     wget "https://github.com/zikula/core/releases/download/${CORE_VERSION}/${CORE_BRANCH}.tar.gz"
     tar -xpzf "${CORE_BRANCH}.tar.gz" && rm "${CORE_BRANCH}.tar.gz"
 else
+    echo "TEST 1"
     if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
+        echo "TEST 2"
         CORE_BRANCH="master"
         CORE_VERSION=${CORE_BRANCH}
     elif [ $CORE == "ZK2DEV" ] || [ $CORE == "ZK15DEV" ]; then
+        echo "TEST 3"
         CORE_BRANCH=$(( $CORE == "ZK2DEV" ? "2.0" : "1.5" ))
         CORE_VERSION=${CORE_BRANCH}
     fi
@@ -88,7 +93,7 @@ if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
     php ${consoleCmd} lint:container
 fi
 echo "Checks: YAML lint"
-php ${consoleCmd} lint:yaml "${MODULE_PATH}/Resources" --parse-tags
+php ${consoleCmd} lint:yaml "@${APP_NAME}" --parse-tags
 echo "Checks: Twig lint"
 php ${consoleCmd} lint:twig "@${APP_NAME}"
 
@@ -188,11 +193,12 @@ echo "Checks: PHP Assumptions"
 # see https://github.com/rskuipers/php-assumptions
 ${TOOL_BIN_PATH}phpa "${MODULE_PATH}" --exclude="${VENDOR_PATH}"
 
+cd "../" && rm -rf "work/"
+
 if [ ${CREATE_ARTIFACTS} = true ]; then
     echo "Create build artifacts"
     cd ..
-    mkdir release
-    cd release
+    mkdir "release" && cd "release"
     unzip -q "../${APP_NAME}.zip"
     rm -Rf vendor
     rm -Rf .git
