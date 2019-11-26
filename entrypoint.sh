@@ -19,8 +19,6 @@ echo "Install dependencies of ${MODULE_PATH}"
 cd "${MODULE_PATH}"
 composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 zip -qr "${APP_NAME}.zip" .
-mv "${APP_NAME}.zip" "../../../"
-cd "../../../"
 mkdir "work" && cd "work/"
 
 CORE_BRANCH=""
@@ -73,11 +71,10 @@ php ${consoleCmd} zikula:install:finish
 mkdir -p "web/imagine/cache"
 
 echo "Install ${APP_NAME}"
-mkdir -p "${MODULE_PATH}" && cd "${MODULE_PATH}"
 if [ $SRC_DIR != "" ]; then
-    unzip -q "../../../../../${APP_NAME}"
+    unzip -q "../../${APP_NAME}.zip"
 else
-    unzip -q "../../../../${APP_NAME}"
+    unzip -q "../${APP_NAME}.zip"
 fi
 
 php ${consoleCmd} bootstrap:bundles
