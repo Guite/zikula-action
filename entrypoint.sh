@@ -16,7 +16,6 @@ TOOL_BIN_PATH="/tools/"
 TOOL_CONFIG_PATH="/tool-config/"
 
 echo "Install dependencies of ${MODULE_PATH}"
-cd "${MODULE_PATH}"
 composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 zip -qr "${APP_NAME}.zip" .
 mkdir "work" && cd "work/"
