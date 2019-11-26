@@ -24,28 +24,26 @@ mkdir "work" && cd "work/"
 
 CORE_BRANCH=""
 CORE_VERSION=""
-echo "TEST: $CORE"
+CORE_DIRECTORY=""
 if [ $CORE == "ZK20" ] || [ $CORE == "ZK15" ]; then
     CORE_BRANCH=$(( $CORE == "ZK20" ? "2.0" : "1.5" ))
     CORE_VERSION=$(( $CORE == "ZK20" ? "2.0.15" : "1.5.9" ))
     echo "Download Zikula Core version ${CORE_VERSION} release"
     wget "https://github.com/zikula/core/releases/download/${CORE_VERSION}/${CORE_BRANCH}.tar.gz"
-    tar -xpzf "${CORE_BRANCH}.tar.gz" && rm "${CORE_BRANCH}.tar.gz"
+    CORE_DIRECTORY=${CORE_BRANCH}
 else
-    echo "TEST 1"
     if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
-        echo "TEST 2"
         CORE_BRANCH="master"
         CORE_VERSION=${CORE_BRANCH}
     elif [ $CORE == "ZK2DEV" ] || [ $CORE == "ZK15DEV" ]; then
-        echo "TEST 3"
         CORE_BRANCH=$(( $CORE == "ZK2DEV" ? "2.0" : "1.5" ))
-        CORE_VERSION=${CORE_BRANCH}
     fi
-    echo "Download Zikula Core version ${CORE_VERSION} branch"
+    CORE_VERSION=${CORE_BRANCH}
+    echo "Download Zikula Core from ${CORE_VERSION} branch"
     wget "https://github.com/zikula/core/archive/${CORE_VERSION}.tar.gz"
-    tar -xpzf "${CORE_VERSION}.tar.gz" && rm "${CORE_VERSION}.tar.gz"
+    CORE_DIRECTORY="core-${CORE_BRANCH}"
 fi
+tar -xpzf "${CORE_BRANCH}.tar.gz" && rm "${CORE_BRANCH}.tar.gz"
 
 consoleCmd="bin/console"
 if [ $CORE == "ZK15" ] || [ $CORE == "ZK15DEV" ]; then
@@ -53,7 +51,7 @@ if [ $CORE == "ZK15" ] || [ $CORE == "ZK15DEV" ]; then
 fi
 
 echo "Install Zikula Core version ${CORE_VERSION}"
-cd "${CORE_BRANCH}"
+cd "${CORE_DIRECTORY}"
 php ${consoleCmd} zikula:install:start -n --database_user=root --database_name=zk_test --password=12345678 --email=admin@example.com --router:request_context:host=localhost
 php ${consoleCmd} zikula:install:finish
 mkdir -p "web/imagine/cache"
