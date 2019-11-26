@@ -21,6 +21,8 @@ composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 zip -qr ${APP_NAME}.zip .
 cd "../../../"
 
+CORE_BRANCH=""
+CORE_VERSION=""
 if [ $CORE == "ZK2DEV" ] || [ $CORE == "ZK15DEV" ]; then
     CORE_BRANCH=$(( $CORE == "ZK2DEV" ? "2.0" : "1.5" ))
     CORE_VERSION=${CORE_BRANCH}
