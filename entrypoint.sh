@@ -10,8 +10,8 @@ echo "Starting process for ${MODULE_NAME}"
 
 APP_NAME="${VENDOR_NAME}${MODULE_NAME}Module"
 MODULE_PATH="${VENDOR_NAME}/${MODULE_NAME}Module"
-LC_VENDOR="$(tr [A-Z] [a-z] <<< "${VENDOR_NAME}")"
-LC_MODULE="$(tr [A-Z] [a-z] <<< "${MODULE_NAME}")"
+LC_VENDOR="$( echo "${VENDOR_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
+LC_MODULE="$( echo "${MODULE_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
 
 echo "Install dependencies of ${MODULE_PATH}"
 composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
