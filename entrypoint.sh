@@ -23,23 +23,23 @@ cd "../../../"
 
 CORE_BRANCH=""
 CORE_VERSION=""
-if [ $CORE == "ZK2DEV" ] || [ $CORE == "ZK15DEV" ]; then
-    CORE_BRANCH=$(( $CORE == "ZK2DEV" ? "2.0" : "1.5" ))
-    CORE_VERSION=${CORE_BRANCH}
-    echo "Download Zikula Core version ${CORE_VERSION} branch"
-    wget "https://github.com/zikula/core/archive/${CORE_VERSION}.tar.gz"
-    tar -xpzf "${CORE_VERSION}.tar.gz" && rm "${CORE_VERSION}.tar.gz"
+if [ $CORE == "ZK20" ] || [ $CORE == "ZK15" ]; then
+    CORE_BRANCH=$(( $CORE == "ZK20" ? "2.0" : "1.5" ))
+    CORE_VERSION=$(( $CORE == "ZK20" ? "2.0.15" : "1.5.9" ))
+    echo "Download Zikula Core version ${CORE_VERSION} release"
+    wget "https://github.com/zikula/core/releases/download/${CORE_VERSION}/${CORE_BRANCH}.tar.gz"
+    tar -xpzf "${CORE_BRANCH}.tar.gz" && rm "${CORE_BRANCH}.tar.gz"
 else
     if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
         CORE_BRANCH="master"
         CORE_VERSION=${CORE_BRANCH}
-    elif [ $CORE == "ZK20" ] || [ $CORE == "ZK15" ]; then
-        CORE_BRANCH=$(( $CORE == "ZK20" ? "2.0" : "1.5" ))
-        CORE_VERSION=$(( $CORE == "ZK20" ? "2.0.15" : "1.5.9" ))
+    elif [ $CORE == "ZK2DEV" ] || [ $CORE == "ZK15DEV" ]; then
+        CORE_BRANCH=$(( $CORE == "ZK2DEV" ? "2.0" : "1.5" ))
+        CORE_VERSION=${CORE_BRANCH}
     fi
-    echo "Download Zikula Core version ${CORE_VERSION} release"
-    wget "https://github.com/zikula/core/releases/download/${CORE_VERSION}/${CORE_BRANCH}.tar.gz"
-    tar -xpzf "${CORE_BRANCH}.tar.gz" && rm "${CORE_BRANCH}.tar.gz"
+    echo "Download Zikula Core version ${CORE_VERSION} branch"
+    wget "https://github.com/zikula/core/archive/${CORE_VERSION}.tar.gz"
+    tar -xpzf "${CORE_VERSION}.tar.gz" && rm "${CORE_VERSION}.tar.gz"
 fi
 
 consoleCmd="bin/console"
