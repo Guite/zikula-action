@@ -1,4 +1,4 @@
-FROM php:7.3-alpine
+FROM jakzal/phpqa:php7.3-alpine
 
 LABEL "com.github.actions.name"="Guite-Zikula-Action"
 LABEL "com.github.actions.description"="build and test Zikula modules"
@@ -9,56 +9,29 @@ LABEL "repository"="https://github.com/Guite/zikula-action"
 LABEL "homepage"="https://github.com/actions"
 LABEL "maintainer"="Axel Guckelsberger <info@guite.de>"
 
-# Use the default development configuration
-RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
-# Use the default production configuration
-#RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN apk update && apk upgrade
 
-RUN php -m
-RUN php -i
+# TODO review and cleanup
+# install additional php extensions
+# xsl is required by phpqa
+#RUN apk add --no-cache libxslt-dev \
+# && docker-php-ext-install xsl
 
-# install php extensions
-# xml is required by phpunit, xsl is required by phpqa, php-ast is used by phan
+# php-ast is used by phan
 # note we do not install phpunit, since composer installs Symfony's phpunit-bridge providing simple-phpunit
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
-    bcmath ctype curl gd iconv intl json mbstring mcrypt \
-    mysqli mysqlnd pdo pdo_mysql session simplexml tokenizer \
-    xml xsl zip
+# RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+#     && docker-php-ext-install -j$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
+#     bcmath gd intl mcrypt mysqli pdo_mysql simplexml xsl zip
 
-# install composer
-#RUN apk update && apk add \
-#    php7 php7-bcmath php7-ctype php7-curl php7-gd php7-iconv php7-intl php7-json php7-mbstring php7-mcrypt \
-#    php7-mysqli php7-mysqlnd php7-pdo php7-pdo_mysql php7-session php7-simplexml php7-tokenizer \
-#    php7-xml php7-xsl php7-zip php7-pecl-ast composer
+# install pcov support (faster than xdebug)
+RUN pecl install pcov && docker-php-ext-enable pcov
 
-# note pcov is much faster than xdebug
-# TODO php7-pecl-pcov package is not available in alpine 3.10 yet though (only in edge)
-# see https://pkgs.alpinelinux.org/packages?name=*php*pcov*
-
-# install required additional releng tools
-RUN composer require --dev \
-    jakub-onderka/php-parallel-lint:^1 \
-    jakub-onderka/php-console-highlighter:^0 \
-    phpunit/phpunit:^8 \
-    friendsofphp/php-cs-fixer:^2 \
-    consolidation/robo:^1 \
-    phan/phan:^2 \
-    phpstan/phpstan:^0 \
-    phpstan/phpstan-doctrine:^0 \
-    phpstan/phpstan-phpunit:^0 \
-    phpstan/phpstan-symfony:^0 \
-    sensiolabs/security-checker:^6 \
-    vimeo/psalm:^3 \
-    edgedesign/phpqa:^1 \
-    macfja/phpqa-extensions:dev-master \
-    povils/phpmnd:^2 \
-    rskuipers/php-assumptions:^0 \
-    wapmorgan/php-code-analyzer:^1
+# install phpstan extensions
+RUN composer global bin phpstan require phpstan/phpstan-doctrine phpstan/phpstan-phpunit phpstan/phpstan-symfony
 
 COPY entrypoint.sh /entrypoint.sh
-# TODO consider using parameters / environment variables (example available)
-#COPY data/custom_parameters.yml /data/app/config/custom_parameters.yml
-#COPY data/generated.yml /data/app/config/dynamic/generated.yml
+
+# copy config files for QA tools
+COPY tool-config/* /tool-config
 
 ENTRYPOINT ["/entrypoint.sh"]
