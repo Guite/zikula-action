@@ -110,6 +110,9 @@ echo "Checks: YAML lint"
 php ${consoleCmd} lint:yaml "@${APP_NAME}" --parse-tags
 echo "Checks: Twig lint"
 php ${consoleCmd} lint:twig "@${APP_NAME}"
+if [ -d "app/" ]; then
+    php ${consoleCmd} lint:twig "app/"
+fi
 
 echo "Checks: coding style"
 # see https://github.com/squizlabs/PHP_CodeSniffer
