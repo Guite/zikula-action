@@ -88,7 +88,6 @@ php ${consoleCmd} cache:warmup --env=prod --no-debug
 # dump js routes
 #php ${consoleCmd} fos:js-routing:dump --env=prod --no-debug --locale=en
 
-#DATABASE_URL="mysql://root:zikula@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/zk_test"
 #echo "Run migration"
 #composer require symfony/orm-pack
 #php ${consoleCmd} doctrine:schema:update --force || echo "No migrations found or schema update failed"
