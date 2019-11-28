@@ -17,6 +17,10 @@ inputs:
     description: 'Core version'
     required: true
     default: 'ZK20'
+  base-dir:
+    description: 'Path to the directory containing the modules folder (including trailing slash)'
+    required: false
+    default: ""
   create-artifacts:
     description: 'Create artifacts'
     required: false

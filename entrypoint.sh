@@ -4,18 +4,19 @@ VENDOR_NAME=$1
 MODULE_NAME=$2
 APP_VERSION=$3
 CORE=$4
-CREATE_ARTIFACTS=$5
+BASE_DIR=$5
+CREATE_ARTIFACTS=$6
 
 echo "Starting process for ${MODULE_NAME}"
 
 APP_NAME="${VENDOR_NAME}${MODULE_NAME}Module"
-MODULE_PATH="modules/${VENDOR_NAME}/${MODULE_NAME}Module"
+MODULE_PATH="${BASE_DIR}modules/${VENDOR_NAME}/${MODULE_NAME}Module"
 VENDOR_PATH="${MODULE_PATH}/vendor"
 LC_MODULE="$( echo "${MODULE_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
 TOOL_BIN_PATH="/tools/"
 TOOL_CONFIG_PATH="/tool-config/"
 
-echo "Install dependencies of ${MODULE_PATH}"
+echo "Install dependencies of ${APP_NAME}"
 composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 zip -qr "${APP_NAME}.zip" .
 mkdir "work" && cd "work/"

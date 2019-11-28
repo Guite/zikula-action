@@ -23,6 +23,9 @@ This action downloads and installs a specific Zikula core version in order to ch
   - `ZK20` - Targets the last stable Zikula 2.0.x version. This is the default value.
   - `ZK2DEV` - Targets the last unstable Zikula 2.x version and may include changes for the next upcoming 2.x core release.
 
+### `base-dir`
+**Optional** Path to the directory containing the `modules/` folder (including trailing slash). Default `""`.
+
 ### `create-artifacts`
 **Optional** Whether to create module archives as build artifacts. Default `false`.
 
@@ -43,6 +46,7 @@ with:
   module-name: 'MultiHook'
   module-version: '1.0.0'
   core-version: 'ZK30DEV'
+  base-dir: 'src/'
   create-artifacts: true
 ```
 
