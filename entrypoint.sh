@@ -4,8 +4,18 @@ VENDOR_NAME=$1
 MODULE_NAME=$2
 APP_VERSION=$3
 CORE=$4
-BASE_DIR=$5
-CREATE_ARTIFACTS=$6
+
+if [ -z "$5" ]; then
+    BASE_DIR=""
+else
+    BASE_DIR="$5"
+fi
+
+if [ -z "$6" ]; then
+    CREATE_ARTIFACTS=true
+else
+    CREATE_ARTIFACTS=false
+fi
 
 echo "Starting process for ${MODULE_NAME}"
 
@@ -212,7 +222,7 @@ ${TOOL_BIN_PATH}phpa "${MODULE_PATH}" --exclude="${VENDOR_PATH}"
 
 cd "../" && rm -rf "work/"
 
-if [ ${CREATE_ARTIFACTS} = true ]; then
+if [ $CREATE_ARTIFACTS == true ]; then
     echo "Create build artifacts"
     cd ..
     mkdir "release" && cd "release"
