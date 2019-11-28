@@ -1,7 +1,7 @@
 FROM jakzal/phpqa:php7.3-alpine
 
 LABEL "com.github.actions.name"="Guite-Zikula-Action"
-LABEL "com.github.actions.description"="build and test Zikula modules"
+LABEL "com.github.actions.description"="Build and test Zikula modules"
 LABEL "com.github.actions.icon"="check"
 LABEL "com.github.actions.color"="orange"
 
