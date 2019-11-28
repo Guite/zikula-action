@@ -7,34 +7,34 @@ This action downloads and installs a specific Zikula core version in order to ch
 
 ## Inputs
 
-### `vendor-name`
+### `vendor_name`
 **Required** Name of vendor. Default `"Acme"`.
 
-### `module-name`
+### `module_name`
 **Required** Name of module without vendor and `Module` suffix. Default `"News"`.
 
-### `module-version`
+### `module_version`
 **Required** Version of module using SemVer notation. Default `"1.0.0"`.
 
-### `core-version`
+### `core_version`
 **Required** Specifies the Zikula version which should be used. Must be one of the following options:
   - `ZK30` - Targets the last stable Zikula 3.0.x version.
   - `ZK3DEV` - Targets the last unstable Zikula 3.x version.
   - `ZK20` - Targets the last stable Zikula 2.0.x version. This is the default value.
   - `ZK2DEV` - Targets the last unstable Zikula 2.x version and may include changes for the next upcoming 2.x core release.
 
-### `base-dir`
+### `base_dir`
 **Optional** Path to the directory containing the `modules/` folder (including trailing slash). Default `""`.
 
-### `create-artifacts`
-**Optional** Whether to create module archives as build artifacts. Default `false`.
+### `create_artifacts`
+**Optional** Whether to create module archives as build artifacts (set to `true`). Default `false`.
 
 ## Outputs
 
-### `tar-archive`
+### `tar_archive`
 Module archive in `tar.gz` format including vendor dependencies which can be used for a release.
 
-### `zip-archive`
+### `zip_archive`
 Module archive in `zip` format including vendor dependencies which can be used for a release.
 
 ## Example usage
@@ -42,12 +42,12 @@ Module archive in `zip` format including vendor dependencies which can be used f
 ```
 uses: guite/zikula-action@master
 with:
-  vendor-name: 'Zikula'
-  module-name: 'MultiHook'
-  module-version: '1.0.0'
-  core-version: 'ZK30DEV'
-  base-dir: 'src/'
-  create-artifacts: true
+  vendor_name: 'Zikula'
+  module_name: 'MultiHook'
+  module_version: '1.0.0'
+  core_version: 'ZK30DEV'
+  base_dir: 'src/'
+  create_artifacts: true
 ```
 
 A dummy project using this GitHub Action can be found [here](https://github.com/Guite/test-actions).

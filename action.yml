@@ -1,44 +1,37 @@
 name: 'Build module'
 description: 'Build and test a Zikula module'
 inputs:
-  vendor-name:
+  vendor_name:
     description: 'Vendor name'
     required: true
     default: 'Acme'
-  module-name:
+  module_name:
     description: 'Module name'
     required: true
     default: 'News'
-  module-version:
+  module_version:
     description: 'Module version'
     required: true
     default: '1.0.0'
-  core-version:
+  core_version:
     description: 'Core version'
     required: true
     default: 'ZK20'
-  base-dir:
+  base_dir:
     description: 'Path to the directory containing the modules folder (including trailing slash)'
     required: false
-    default: ""
-  create-artifacts:
+  create_artifacts:
     description: 'Create artifacts'
     required: false
     default: false
 outputs:
-  tar-archive:
+  tar_archive:
     description: 'Module archive in tar.gz format which can be used for a release'
-  zip-archive:
+  zip_archive:
     description: 'Module archive in zip format which can be used for a release'
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.vendor-name }}
-    - ${{ inputs.module-name }}
-    - ${{ inputs.module-version }}
-    - ${{ inputs.core-version }}
-    - ${{ inputs.create-artifacts }}
 branding:
   icon: 'check'
   color: 'orange'

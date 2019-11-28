@@ -1,21 +1,18 @@
-#!/bin/sh -l
+#!/bin/bash
 
-VENDOR_NAME=$1
-MODULE_NAME=$2
-APP_VERSION=$3
-CORE=$4
+VENDOR_NAME=$INPUT_VENDOR_NAME
+MODULE_NAME=$INPUT_MODULE_NAME
+APP_VERSION=$INPUT_APP_VERSION
+CORE=$INPUT_CORE
+BASE_DIR=$INPUT_BASE_DIR
+CREATE_ARTIFACTS=${CREATE_ARTIFACTS:false}
 
-if [ -z "$5" ]; then
-    BASE_DIR=""
-else
-    BASE_DIR="$5"
-fi
-
-if [ -z "$6" ]; then
-    CREATE_ARTIFACTS=true
-else
-    CREATE_ARTIFACTS=false
-fi
+# echo "Vendor: ${VENDOR_NAME}"
+# echo "Module: ${MODULE_NAME}"
+# echo "Version: ${APP_VERSION}"
+# echo "Core: ${CORE}"
+# echo "Base dir: ${BASE_DIR}"
+# echo "Create artifacts: ${CREATE_ARTIFACTS}"
 
 echo "Starting process for ${MODULE_NAME}"
 
@@ -34,17 +31,17 @@ mkdir "work" && cd "work/"
 CORE_BRANCH=""
 CORE_VERSION=""
 CORE_DIRECTORY=""
-if [ $CORE == "ZK20" ] || [ $CORE == "ZK15" ]; then
+if [ "$CORE" == "ZK20" ] || [ "$CORE" == "ZK15" ]; then
     CORE_BRANCH=$(( $CORE == "ZK20" ? "2.0" : "1.5" ))
     CORE_VERSION=$(( $CORE == "ZK20" ? "2.0.15" : "1.5.9" ))
     echo "Download Zikula Core version ${CORE_VERSION} release"
     wget "https://github.com/zikula/core/releases/download/${CORE_VERSION}/${CORE_BRANCH}.tar.gz"
     CORE_DIRECTORY=${CORE_BRANCH}
 else
-    if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
+    if [ "$CORE" == "ZK30" ] || [ "$CORE" == "ZK3DEV" ]; then
         CORE_BRANCH="master"
         CORE_VERSION=${CORE_BRANCH}
-    elif [ $CORE == "ZK2DEV" ] || [ $CORE == "ZK15DEV" ]; then
+    elif [ "$CORE" == "ZK2DEV" ] || [ "$CORE" == "ZK15DEV" ]; then
         CORE_BRANCH=$(( $CORE == "ZK2DEV" ? "2.0" : "1.5" ))
     fi
     CORE_VERSION=${CORE_BRANCH}
@@ -54,21 +51,21 @@ else
 fi
 tar -xpzf "${CORE_BRANCH}.tar.gz" && rm "${CORE_BRANCH}.tar.gz"
 SRC_DIR=""
-if [ $CORE == "ZK15DEV" ] || [ $CORE == "ZK2DEV" ] || [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
+if [ "$CORE" == "ZK15DEV" ] || [ "$CORE" == "ZK2DEV" ] || [ "$CORE" == "ZK30" ] || [ "$CORE" == "ZK3DEV" ]; then
     SRC_DIR="src/"
 fi
 
 consoleCmd="bin/console"
-if [ $CORE == "ZK20" ]; then
+if [ "$CORE" == "ZK20" ]; then
     consoleCmd="bin/console"
-elif [ $CORE == "ZK15" ]; then
+elif [ "$CORE" == "ZK15" ]; then
     consoleCmd="app/console"
-elif [ $CORE == "ZK15DEV" ]; then
+elif [ "$CORE" == "ZK15DEV" ]; then
     consoleCmd="app/console"
 fi
 
 cd "${CORE_DIRECTORY}"
-if [ $SRC_DIR != "" ]; then
+if [ "$SRC_DIR" != "" ]; then
     echo "Install core dependencies"
     composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
@@ -81,14 +78,14 @@ php ${consoleCmd} zikula:install:finish
 mkdir -p "web/imagine/cache"
 
 echo "Install ${APP_NAME}"
-if [ $SRC_DIR != "" ]; then
+if [ "$SRC_DIR" != "" ]; then
     unzip -q "../../${APP_NAME}.zip"
 else
     unzip -q "../${APP_NAME}.zip"
 fi
 
 php ${consoleCmd} bootstrap:bundles
-if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
+if [ "$CORE" == "ZK30" ] || [ "$CORE" == "ZK3DEV" ]; then
     mysql -e "INSERT INTO zk_test.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, coreCompatibility) VALUES (NULL, '${APP_NAME}', '3', '${MODULE_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}');"
 else
     mysql -e "INSERT INTO zk_test.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, core_min, core_max) VALUES (NULL, '${APP_NAME}', '3', '${APP_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}', '3.0.0');"
@@ -112,7 +109,7 @@ ${TOOL_BIN_PATH}phplint "${MODULE_PATH}" --exclude="${VENDOR_PATH}" -c="${TOOL_C
 # see https://github.com/JakubOnderka/PHP-Parallel-Lint
 ${TOOL_BIN_PATH}parallel-lint --colors --exclude "${VENDOR_PATH}" "${MODULE_PATH}"
 
-if [ $CORE == "ZK30" ] || [ $CORE == "ZK3DEV" ]; then
+if [ "$CORE" == "ZK30" ] || [ "$CORE" == "ZK3DEV" ]; then
     echo "Checks: Service container lint"
     php ${consoleCmd} lint:container
 fi
@@ -222,7 +219,7 @@ ${TOOL_BIN_PATH}phpa "${MODULE_PATH}" --exclude="${VENDOR_PATH}"
 
 cd "../" && rm -rf "work/"
 
-if [ $CREATE_ARTIFACTS == true ]; then
+if [ "$CREATE_ARTIFACTS" = true ]; then
     echo "Create build artifacts"
     cd ..
     mkdir "release" && cd "release"
@@ -233,6 +230,6 @@ if [ $CREATE_ARTIFACTS == true ]; then
     zip -qr "${APP_NAME}_v${APP_VERSION}.zip" .
     tar cfz "${APP_NAME}_v${APP_VERSION}.tar.gz" .
 
-    echo ::set-output name=tar-archive::${APP_NAME}_v${APP_VERSION}.tar.gz
-    echo ::set-output name=zip-archive::${APP_NAME}_v${APP_VERSION}.zip
+    echo ::set-output name=tar_archive::${APP_NAME}_v${APP_VERSION}.tar.gz
+    echo ::set-output name=zip_archive::${APP_NAME}_v${APP_VERSION}.zip
 fi
