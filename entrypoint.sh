@@ -1,5 +1,6 @@
 #!/bin/bash
 
+WORKSPACE_ROOT="${INPUT_GITHUB_WORKSPACE}/"
 VENDOR_NAME=$INPUT_VENDOR_NAME
 MODULE_NAME=$INPUT_MODULE_NAME
 APP_VERSION=$INPUT_APP_VERSION
@@ -24,9 +25,11 @@ TOOL_BIN_PATH="/tools/"
 TOOL_CONFIG_PATH="/tool-config/"
 
 echo "Install dependencies of ${APP_NAME}"
+cd "${MODULE_PATH}"
 composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+cd ${WORKSPACE_ROOT}
 zip -qr "${APP_NAME}.zip" .
-mkdir "work" && cd "work/"
+mkdir -p "work" && cd "work/"
 
 CORE_BRANCH=""
 CORE_VERSION=""
@@ -78,11 +81,7 @@ php ${consoleCmd} zikula:install:finish
 mkdir -p "web/imagine/cache"
 
 echo "Install ${APP_NAME}"
-if [ "$SRC_DIR" != "" ]; then
-    unzip -q "../../${APP_NAME}.zip"
-else
-    unzip -q "../${APP_NAME}.zip"
-fi
+unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
 
 php ${consoleCmd} bootstrap:bundles
 if [ "$CORE" == "ZK30" ] || [ "$CORE" == "ZK3DEV" ]; then
@@ -217,13 +216,13 @@ echo "Checks: PHP Assumptions"
 # see https://github.com/rskuipers/php-assumptions
 ${TOOL_BIN_PATH}phpa "${MODULE_PATH}" --exclude="${VENDOR_PATH}"
 
-cd "../" && rm -rf "work/"
+cd ${WORKSPACE_ROOT} && rm -rf "work/"
 
 if [ "$CREATE_ARTIFACTS" = true ]; then
     echo "Create build artifacts"
-    cd ..
+    cd ${WORKSPACE_ROOT}
     mkdir "release" && cd "release"
-    unzip -q "../${APP_NAME}.zip"
+    unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
     rm -Rf vendor
     rm -Rf .git
     composer install --no-dev --no-progress --no-suggest --prefer-dist --optimize-autoloader
@@ -232,4 +231,6 @@ if [ "$CREATE_ARTIFACTS" = true ]; then
 
     echo ::set-output name=tar_archive::${APP_NAME}_v${APP_VERSION}.tar.gz
     echo ::set-output name=zip_archive::${APP_NAME}_v${APP_VERSION}.zip
+
+    cd ${WORKSPACE_ROOT} && rm -rf "release/"
 fi
