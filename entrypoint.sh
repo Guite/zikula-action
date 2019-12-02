@@ -23,10 +23,10 @@ DB_NAME=${INPUT_DATABASE_NAME:zikula}
 # echo "Base dir: ${BASE_DIR}"
 # echo "Create artifacts: ${CREATE_ARTIFACTS}"
 
-# echo "DB Host: ${DB_HOST}"
-# echo "DB User: ${DB_USER}"
-# echo "DB Pass: ${DB_PASS}"
-# echo "DB NAME: ${DB_NAME}"
+echo "DB Host: ${DB_HOST}"
+echo "DB User: ${DB_USER}"
+echo "DB Pass: ${DB_PASS}"
+echo "DB NAME: ${DB_NAME}"
 
 # Test database connection
 mysql -h ${DB_HOST} -u ${DB_USER} -p ${DB_PASS} -e "SHOW DATABASES;"
