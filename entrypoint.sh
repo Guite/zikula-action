@@ -3,17 +3,17 @@
 WORKSPACE_ROOT="${GITHUB_WORKSPACE}/"
 VENDOR_NAME=$INPUT_VENDOR_NAME
 MODULE_NAME=$INPUT_MODULE_NAME
-APP_VERSION=$INPUT_APP_VERSION
+APP_VERSION=$INPUT_MODULE_VERSION
 CORE=$INPUT_CORE_VERSION
 BASE_DIR=$INPUT_BASE_DIR
 CREATE_ARTIFACTS=${CREATE_ARTIFACTS:false}
 
-echo "Vendor: ${VENDOR_NAME}"
-echo "Module: ${MODULE_NAME}"
-echo "Version: ${APP_VERSION}"
-echo "Core: ${CORE}"
-echo "Base dir: ${BASE_DIR}"
-echo "Create artifacts: ${CREATE_ARTIFACTS}"
+# echo "Vendor: ${VENDOR_NAME}"
+# echo "Module: ${MODULE_NAME}"
+# echo "Version: ${APP_VERSION}"
+# echo "Core: ${CORE}"
+# echo "Base dir: ${BASE_DIR}"
+# echo "Create artifacts: ${CREATE_ARTIFACTS}"
 
 echo "Starting process for ${MODULE_NAME}"
 
@@ -35,8 +35,13 @@ CORE_BRANCH=""
 CORE_VERSION=""
 CORE_DIRECTORY=""
 if [ "$CORE" = "ZK20" ] || [ "$CORE" = "ZK15" ]; then
-    CORE_BRANCH=$(( $CORE == "ZK20" ? "2.0" : "1.5" ))
-    CORE_VERSION=$(( $CORE == "ZK20" ? "2.0.15" : "1.5.9" ))
+    if [ "$CORE" = "ZK15" ]; then
+        CORE_BRANCH="1.5"
+        CORE_VERSION="1.5.9"
+    else
+        CORE_BRANCH="2.0"
+        CORE_VERSION="2.0.15"
+    fi
     echo "Download Zikula Core version ${CORE_VERSION} release"
     wget "https://github.com/zikula/core/releases/download/${CORE_VERSION}/${CORE_BRANCH}.tar.gz"
     CORE_DIRECTORY=${CORE_BRANCH}
@@ -44,8 +49,10 @@ else
     if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
         CORE_BRANCH="master"
         CORE_VERSION=${CORE_BRANCH}
-    elif [ "$CORE" = "ZK2DEV" ] || [ "$CORE" = "ZK15DEV" ]; then
-        CORE_BRANCH=$(( $CORE == "ZK2DEV" ? "2.0" : "1.5" ))
+    elif [ "$CORE" = "ZK2DEV" ]; then
+        CORE_BRANCH="2.0"
+    elif [ "$CORE" = "ZK15DEV" ]; then
+        CORE_BRANCH="1.5"
     fi
     CORE_VERSION=${CORE_BRANCH}
     echo "Download Zikula Core from ${CORE_VERSION} branch"
