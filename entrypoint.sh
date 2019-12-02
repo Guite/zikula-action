@@ -10,8 +10,9 @@ CREATE_ARTIFACTS=${CREATE_ARTIFACTS:false}
 
 DB_HOST=${INPUT_DATABASE_HOST:default}
 if [ "$DB_HOST" = "default" ]; then
-    DB_HOST='127.0.0.1:3306'
+    DB_HOST='127.0.0.1'
 fi
+DB_POST=${INPUT_DATABASE_PORT:3306}
 DB_USER=${INPUT_DATABASE_USER:zikula}
 DB_PASS=${INPUT_DATABASE_PASS:zikula}
 DB_NAME=${INPUT_DATABASE_NAME:zikula}
@@ -24,12 +25,13 @@ DB_NAME=${INPUT_DATABASE_NAME:zikula}
 # echo "Create artifacts: ${CREATE_ARTIFACTS}"
 
 echo "DB Host: ${DB_HOST}"
+echo "DB Port: ${DB_PORT}"
 echo "DB User: ${DB_USER}"
 echo "DB Pass: ${DB_PASS}"
-echo "DB NAME: ${DB_NAME}"
+echo "DB Name${DB_NAME}"
 
 # Test database connection
-mysql -h ${DB_HOST} -u ${DB_USER} -p ${DB_PASS} -e "SHOW DATABASES;"
+mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e 'SHOW DATABASES;'
 
 # TEMP HALT WITH ERROR
 echo "TEMP HALT"

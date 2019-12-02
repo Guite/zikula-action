@@ -27,7 +27,11 @@ inputs:
   database_host:
     description: Database host
     required: false
-    default: '127.0.0.1:3306'
+    default: '127.0.0.1'
+  database_port:
+    description: Database port
+    required: false
+    default: 3306
   database_user:
     description: Database user
     required: false

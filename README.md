@@ -30,7 +30,10 @@ This action downloads and installs a specific Zikula core version in order to ch
 **Optional** Whether to create module archives as build artifacts (set to `true`). Default `false`.
 
 ### `database_host`
-**Optional** Host of database (optionally including the port). Default `"127.0.0.1:3306"`.
+**Optional** Host of database. Default `"127.0.0.1"`.
+
+### `database_port`
+**Optional** Port of database. Default `3306`.
 
 ### `database_user`
 **Optional** User of database. Default `"zikula"`.
