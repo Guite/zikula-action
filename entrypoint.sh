@@ -23,10 +23,13 @@ DB_NAME=${INPUT_DATABASE_NAME:zikula}
 # echo "Base dir: ${BASE_DIR}"
 # echo "Create artifacts: ${CREATE_ARTIFACTS}"
 
-echo "DB Host: ${DB_HOST}"
-echo "DB User: ${DB_USER}"
-echo "DB Pass: ${DB_PASS}"
-echo "DB NAME: ${DB_NAME}"
+# echo "DB Host: ${DB_HOST}"
+# echo "DB User: ${DB_USER}"
+# echo "DB Pass: ${DB_PASS}"
+# echo "DB NAME: ${DB_NAME}"
+
+# Test database connection
+mysql -h ${DB_HOST} -u ${DB_USER} -p ${DB_PASS} -e "SHOW DATABASES;"
 
 # TEMP HALT WITH ERROR
 echo "TEMP HALT"
@@ -109,9 +112,9 @@ unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
 
 php ${consoleCmd} bootstrap:bundles
 if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
-    mysql -e "INSERT INTO zk_test.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, coreCompatibility) VALUES (NULL, '${APP_NAME}', '3', '${MODULE_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}');"
+    mysql -h ${DB_HOST} -u ${DB_USER} -p ${DB_PASS} -e "INSERT INTO ${DB_NAME}.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, coreCompatibility) VALUES (NULL, '${APP_NAME}', '3', '${MODULE_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}');"
 else
-    mysql -e "INSERT INTO zk_test.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, core_min, core_max) VALUES (NULL, '${APP_NAME}', '3', '${APP_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}', '3.0.0');"
+    mysql -h ${DB_HOST} -u ${DB_USER} -p ${DB_PASS} -e "INSERT INTO ${DB_NAME}.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, core_min, core_max) VALUES (NULL, '${APP_NAME}', '3', '${APP_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}', '3.0.0');"
 fi
 
 php ${consoleCmd} cache:warmup --env=prod --no-debug
