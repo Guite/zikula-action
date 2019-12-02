@@ -28,10 +28,10 @@ echo "DB Host: ${DB_HOST}"
 echo "DB Port: ${DB_PORT}"
 echo "DB User: ${DB_USER}"
 echo "DB Pass: ${DB_PASS}"
-echo "DB Name${DB_NAME}"
+echo "DB Name: ${DB_NAME}"
 
-# Test database connection
-mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e 'SHOW DATABASES;'
+echo "Create database"
+mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
 
 # TEMP HALT WITH ERROR
 echo "TEMP HALT"
