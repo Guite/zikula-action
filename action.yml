@@ -27,7 +27,7 @@ inputs:
   database_host:
     description: Database host
     required: false
-    default: localhost
+    default: '127.0.0.1:3306'
   database_user:
     description: Database user
     required: false

@@ -8,7 +8,7 @@ CORE=$INPUT_CORE_VERSION
 BASE_DIR=$INPUT_BASE_DIR
 CREATE_ARTIFACTS=${CREATE_ARTIFACTS:false}
 
-DB_HOST=${INPUT_DATABASE_HOST:localhost}
+DB_HOST=${INPUT_DATABASE_HOST:"127.0.0.1:3306"}
 DB_USER=${INPUT_DATABASE_USER:zikula}
 DB_PASS=${INPUT_DATABASE_PASS:zikula}
 DB_NAME=${INPUT_DATABASE_NAME:zikula}
@@ -19,6 +19,15 @@ DB_NAME=${INPUT_DATABASE_NAME:zikula}
 # echo "Core: ${CORE}"
 # echo "Base dir: ${BASE_DIR}"
 # echo "Create artifacts: ${CREATE_ARTIFACTS}"
+
+echo "DB Host: ${DB_HOST}"
+echo "DB User: ${DB_USER}"
+echo "DB Pass: ${DB_PASS}"
+echo "DB NAME: ${DB_NAME}"
+
+# TEMP HALT WITH ERROR
+echo "TEMP HALT"
+exit 1
 
 echo "Starting process for ${MODULE_NAME}"
 
