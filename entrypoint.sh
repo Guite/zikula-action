@@ -27,18 +27,11 @@ DB_NAME=${INPUT_DATABASE_NAME:zikula}
 # echo "Base dir: ${BASE_DIR}"
 # echo "Create artifacts: ${CREATE_ARTIFACTS}"
 
-echo "DB Host: ${DB_HOST}"
-echo "DB Port: ${DB_PORT}"
-echo "DB User: ${DB_USER}"
-echo "DB Pass: ${DB_PASS}"
-echo "DB Name: ${DB_NAME}"
-
-echo "Create database"
-mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
-
-# TEMP HALT WITH ERROR
-echo "TEMP HALT"
-exit 1
+# echo "DB Host: ${DB_HOST}"
+# echo "DB Port: ${DB_PORT}"
+# echo "DB User: ${DB_USER}"
+# echo "DB Pass: ${DB_PASS}"
+# echo "DB Name: ${DB_NAME}"
 
 echo "Starting process for ${MODULE_NAME}"
 
@@ -107,10 +100,17 @@ if [ "$SRC_DIR" != "" ]; then
     cd "${SRC_DIR}"
 fi
 
+echo "Create database"
+mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
+
 echo "Install Zikula Core version ${CORE_VERSION}"
 php ${consoleCmd} zikula:install:start -n --database_host=${DB_HOST} --database_user=${DB_USER} --database_name=${DB_NAME} --database_password=${DB_PASS} --email=admin@example.com --router:request_context:host=localhost
 php ${consoleCmd} zikula:install:finish
 mkdir -p "web/imagine/cache"
+
+# TEMP HALT WITH ERROR
+echo "TEMP HALT"
+exit 1
 
 echo "Install ${APP_NAME}"
 unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
