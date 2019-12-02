@@ -4,16 +4,16 @@ WORKSPACE_ROOT="${GITHUB_WORKSPACE}/"
 VENDOR_NAME=$INPUT_VENDOR_NAME
 MODULE_NAME=$INPUT_MODULE_NAME
 APP_VERSION=$INPUT_APP_VERSION
-CORE=$INPUT_CORE
+CORE=$INPUT_CORE_VERSION
 BASE_DIR=$INPUT_BASE_DIR
 CREATE_ARTIFACTS=${CREATE_ARTIFACTS:false}
 
-# echo "Vendor: ${VENDOR_NAME}"
-# echo "Module: ${MODULE_NAME}"
-# echo "Version: ${APP_VERSION}"
-# echo "Core: ${CORE}"
-# echo "Base dir: ${BASE_DIR}"
-# echo "Create artifacts: ${CREATE_ARTIFACTS}"
+echo "Vendor: ${VENDOR_NAME}"
+echo "Module: ${MODULE_NAME}"
+echo "Version: ${APP_VERSION}"
+echo "Core: ${CORE}"
+echo "Base dir: ${BASE_DIR}"
+echo "Create artifacts: ${CREATE_ARTIFACTS}"
 
 echo "Starting process for ${MODULE_NAME}"
 
