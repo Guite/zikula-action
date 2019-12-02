@@ -33,6 +33,8 @@ DB_NAME=${INPUT_DATABASE_NAME:zikula}
 # echo "DB Pass: ${DB_PASS}"
 # echo "DB Name: ${DB_NAME}"
 
+printenv
+
 echo "Starting process for ${MODULE_NAME}"
 
 APP_NAME="${VENDOR_NAME}${MODULE_NAME}Module"
