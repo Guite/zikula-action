@@ -8,6 +8,11 @@ CORE=$INPUT_CORE_VERSION
 BASE_DIR=$INPUT_BASE_DIR
 CREATE_ARTIFACTS=${CREATE_ARTIFACTS:false}
 
+DB_HOST=${INPUT_DATABASE_HOST:localhost}
+DB_USER=${INPUT_DATABASE_USER:zikula}
+DB_PASS=${INPUT_DATABASE_PASS:zikula}
+DB_NAME=${INPUT_DATABASE_NAME:zikula}
+
 # echo "Vendor: ${VENDOR_NAME}"
 # echo "Module: ${MODULE_NAME}"
 # echo "Version: ${APP_VERSION}"
@@ -83,7 +88,7 @@ if [ "$SRC_DIR" != "" ]; then
 fi
 
 echo "Install Zikula Core version ${CORE_VERSION}"
-php ${consoleCmd} zikula:install:start -n --database_host=127.0.0.1 --database_user=root --database_name=zikula --database_password=zikula --email=admin@example.com --router:request_context:host=localhost
+php ${consoleCmd} zikula:install:start -n --database_host=${DB_HOST} --database_user=${DB_USER} --database_name=${DB_NAME} --database_password=${DB_PASS} --email=admin@example.com --router:request_context:host=localhost
 php ${consoleCmd} zikula:install:finish
 mkdir -p "web/imagine/cache"
 

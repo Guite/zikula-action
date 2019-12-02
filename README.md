@@ -29,6 +29,18 @@ This action downloads and installs a specific Zikula core version in order to ch
 ### `create_artifacts`
 **Optional** Whether to create module archives as build artifacts (set to `true`). Default `false`.
 
+### `database_host`
+**Optional** Host of database (optionally including the port). Default `"localhost"`.
+
+### `database_user`
+**Optional** User of database. Default `"zikula"`.
+
+### `database_pass`
+**Optional** Password of database. Default `"zikula"`.
+
+### `database_name`
+**Optional** Name of database. Default `"zikula"`.
+
 ## Outputs
 
 ### `tar_archive`
