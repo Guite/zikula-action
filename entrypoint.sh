@@ -74,10 +74,6 @@ elif [ "$CORE" = "ZK15DEV" ]; then
     consoleCmd="app/console"
 fi
 
-# TEMP HALT WITH ERROR
-echo "TEMP HALT"
-exit 1
-
 cd "${CORE_DIRECTORY}"
 if [ "$SRC_DIR" != "" ]; then
     echo "Install core dependencies"
@@ -130,6 +126,10 @@ php ${consoleCmd} lint:twig "@${APP_NAME}"
 if [ -d "app/" ]; then
     php ${consoleCmd} lint:twig "app/"
 fi
+
+# TEMP HALT WITH ERROR
+echo "TEMP HALT"
+exit 1
 
 echo "Checks: coding style"
 # see https://github.com/squizlabs/PHP_CodeSniffer
