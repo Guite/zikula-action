@@ -12,7 +12,10 @@ DB_HOST=${INPUT_DATABASE_HOST:default}
 if [ "$DB_HOST" = "default" ]; then
     DB_HOST='127.0.0.1'
 fi
-DB_PORT=${INPUT_DATABASE_PORT:3306}
+DB_PORT=${INPUT_DATABASE_PORT:default}
+if [ "$DB_PORT" = "default" ]; then
+    DB_HOST='3306'
+fi
 DB_USER=${INPUT_DATABASE_USER:zikula}
 DB_PASS=${INPUT_DATABASE_PASS:zikula}
 DB_NAME=${INPUT_DATABASE_NAME:zikula}

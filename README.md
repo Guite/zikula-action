@@ -33,7 +33,7 @@ This action downloads and installs a specific Zikula core version in order to ch
 **Optional** Host of database. Default `"127.0.0.1"`.
 
 ### `database_port`
-**Optional** Port of database. Default `3306`.
+**Optional** Port of database. Default `"3306"`.
 
 ### `database_user`
 **Optional** User of database. Default `"zikula"`.
