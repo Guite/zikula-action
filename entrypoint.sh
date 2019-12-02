@@ -34,17 +34,17 @@ mkdir -p "work" && cd "work/"
 CORE_BRANCH=""
 CORE_VERSION=""
 CORE_DIRECTORY=""
-if [ "$CORE" == "ZK20" ] || [ "$CORE" == "ZK15" ]; then
+if [ "$CORE" = "ZK20" ] || [ "$CORE" = "ZK15" ]; then
     CORE_BRANCH=$(( $CORE == "ZK20" ? "2.0" : "1.5" ))
     CORE_VERSION=$(( $CORE == "ZK20" ? "2.0.15" : "1.5.9" ))
     echo "Download Zikula Core version ${CORE_VERSION} release"
     wget "https://github.com/zikula/core/releases/download/${CORE_VERSION}/${CORE_BRANCH}.tar.gz"
     CORE_DIRECTORY=${CORE_BRANCH}
 else
-    if [ "$CORE" == "ZK30" ] || [ "$CORE" == "ZK3DEV" ]; then
+    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
         CORE_BRANCH="master"
         CORE_VERSION=${CORE_BRANCH}
-    elif [ "$CORE" == "ZK2DEV" ] || [ "$CORE" == "ZK15DEV" ]; then
+    elif [ "$CORE" = "ZK2DEV" ] || [ "$CORE" = "ZK15DEV" ]; then
         CORE_BRANCH=$(( $CORE == "ZK2DEV" ? "2.0" : "1.5" ))
     fi
     CORE_VERSION=${CORE_BRANCH}
@@ -54,18 +54,22 @@ else
 fi
 tar -xpzf "${CORE_BRANCH}.tar.gz" && rm "${CORE_BRANCH}.tar.gz"
 SRC_DIR=""
-if [ "$CORE" == "ZK15DEV" ] || [ "$CORE" == "ZK2DEV" ] || [ "$CORE" == "ZK30" ] || [ "$CORE" == "ZK3DEV" ]; then
+if [ "$CORE" = "ZK15DEV" ] || [ "$CORE" = "ZK2DEV" ] || [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
     SRC_DIR="src/"
 fi
 
 consoleCmd="bin/console"
-if [ "$CORE" == "ZK20" ]; then
+if [ "$CORE" = "ZK20" ]; then
     consoleCmd="bin/console"
-elif [ "$CORE" == "ZK15" ]; then
+elif [ "$CORE" = "ZK15" ]; then
     consoleCmd="app/console"
-elif [ "$CORE" == "ZK15DEV" ]; then
+elif [ "$CORE" = "ZK15DEV" ]; then
     consoleCmd="app/console"
 fi
+
+# TEMP HALT WITH ERROR
+echo "TEMP HALT"
+exit 1
 
 cd "${CORE_DIRECTORY}"
 if [ "$SRC_DIR" != "" ]; then
@@ -84,7 +88,7 @@ echo "Install ${APP_NAME}"
 unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
 
 php ${consoleCmd} bootstrap:bundles
-if [ "$CORE" == "ZK30" ] || [ "$CORE" == "ZK3DEV" ]; then
+if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
     mysql -e "INSERT INTO zk_test.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, coreCompatibility) VALUES (NULL, '${APP_NAME}', '3', '${MODULE_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}');"
 else
     mysql -e "INSERT INTO zk_test.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, core_min, core_max) VALUES (NULL, '${APP_NAME}', '3', '${APP_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}', '3.0.0');"
@@ -108,7 +112,7 @@ ${TOOL_BIN_PATH}phplint "${MODULE_PATH}" --exclude="${VENDOR_PATH}" -c="${TOOL_C
 # see https://github.com/JakubOnderka/PHP-Parallel-Lint
 ${TOOL_BIN_PATH}parallel-lint --colors --exclude "${VENDOR_PATH}" "${MODULE_PATH}"
 
-if [ "$CORE" == "ZK30" ] || [ "$CORE" == "ZK3DEV" ]; then
+if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
     echo "Checks: Service container lint"
     php ${consoleCmd} lint:container
 fi
