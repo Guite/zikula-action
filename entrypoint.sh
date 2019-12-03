@@ -109,7 +109,7 @@ echo "TEMP HALT"
 exit 1
 
 echo "Install Zikula Core version ${CORE_VERSION}"
-php ${consoleCmd} zikula:install:start -n --database_host=${DB_HOST} --database_user=${DB_USER} --database_name=${DB_NAME} --database_password=${DB_PASS} --email=admin@example.com --router:request_context:host=localhost
+php ${consoleCmd} zikula:install:start -n --database_host=${DB_HOST} --database_user=${DB_USER} --database_name=${DB_NAME} --database_password=${DB_PASS} --email=admin@example.com --router:request_context:host=localhost --router:request_context:base_url='/'
 php ${consoleCmd} zikula:install:finish
 mkdir -p "web/imagine/cache"
 
