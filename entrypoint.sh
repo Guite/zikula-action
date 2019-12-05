@@ -191,7 +191,7 @@ ${TOOL_BIN_PATH}security-checker security:check "${MODULE_PATH}/composer.lock"
 
 echo "Info: churn"
 # see https://github.com/bmitch/churn-php
-${TOOL_BIN_PATH}churn run -c "/tool-config/churn.yml" "${MODULE_PATH}"
+${TOOL_BIN_PATH}churn run -c "${TOOL_CONFIG_PATH}churn.yml" "${MODULE_PATH}"
 
 echo "Info: phploc"
 # see https://github.com/sebastianbergmann/phploc
