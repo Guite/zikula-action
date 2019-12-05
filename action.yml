@@ -27,7 +27,7 @@ inputs:
   database_host:
     description: Database host
     required: false
-    default: '127.0.0.1'
+    default: '172.17.0.2'
   database_port:
     description: Database port
     required: false
