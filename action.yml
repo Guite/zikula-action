@@ -1,4 +1,4 @@
-name: Build module
+name: Build Zikula module
 description: Build and test a Zikula module
 inputs:
   vendor_name:
@@ -44,6 +44,10 @@ inputs:
     description: Database name
     required: false
     default: zikula
+  tools:
+    description: Comma-separated list of desired analysis tools
+    required: false
+    default: all
 outputs:
   tar_archive:
     description: Module archive in tar.gz format which can be used for a release
