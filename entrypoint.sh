@@ -18,7 +18,7 @@ DB_NAME=${INPUT_DATABASE_NAME:zikula}
 
 TOOLS=${INPUT_TOOLS:default}
 if [ "$TOOLS" = "default" ]; then
-    TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,php-cs-fixer,phpunit-bridge,psecio-parse,security-checker,churn,phploc,dephpend,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
+    TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,php-cs-fixer,phpunit-bridge,psecio-parse,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
 fi
 CREATE_ARTIFACTS=${CREATE_ARTIFACTS:false}
 
@@ -226,12 +226,12 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",deprecation-detector,"* ]]; then
     ${TOOL_BIN_PATH}deprecation-detector check "${MODULE_PATH}" "${VENDOR_PATH}"
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpcpd,"* ]]; then
-    echo "Checks: Copy paste detection"
+    echo "Checks: phpcpd / Copy paste detection"
     # see https://github.com/sebastianbergmann/phpcpd
     ${TOOL_BIN_PATH}phpcpd --exclude "${VENDOR_PATH}" "${MODULE_PATH}"
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpmd,"* ]]; then
-    echo "Checks: Mess detection"
+    echo "Checks: phpmd / Mess detection"
     # see https://github.com/phpmd/phpmd
     ${TOOL_BIN_PATH}phpmd "${MODULE_PATH}" text "${TOOL_CONFIG_PATH}phpmd.xml" --exclude "${VENDOR_PATH}"
 fi
@@ -254,8 +254,7 @@ fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",psalm,"* ]]; then
     echo "Checks: Psalm"
     # see https://github.com/vimeo/psalm
-    ${TOOL_BIN_PATH}psalm --init
-    ${TOOL_BIN_PATH}psalm "${MODULE_PATH}" -c="${TOOL_CONFIG_PATH}psalm.xml" --find-dead-code --threads=8 --diff --diff-methods --show-info=1
+    ${TOOL_BIN_PATH}psalm "${MODULE_PATH}" --config="${TOOL_CONFIG_PATH}psalm.xml" --find-dead-code --threads=8 --diff --diff-methods --show-info=1
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpmnd,"* ]]; then
     echo "Checks: PHP Magic Number Detector"
