@@ -48,11 +48,6 @@ inputs:
     description: Create artifacts
     required: false
     default: false
-outputs:
-  tar_archive:
-    description: File name of module archive in tar.gz format which can be used for a release
-  zip_archive:
-    description: File name of module archive in zip format which can be used for a release
 runs:
   using: docker
   image: Dockerfile

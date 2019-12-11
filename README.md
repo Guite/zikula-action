@@ -66,11 +66,7 @@ Currently supported tools:
 
 ## Outputs
 
-### `tar_archive`
-File name of module archive in `tar.gz` format including vendor dependencies which can be used for a release.
-
-### `zip_archive`
-File name of module archive in `zip` format including vendor dependencies which can be used for a release.
+If `create_artifacts` is set to `true` then as a result you will have a directory named `AcmeNewsModule_v1.0.0` including vendor dependencies which can be used for a release.
 
 ## Example usage
 

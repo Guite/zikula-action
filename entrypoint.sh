@@ -274,22 +274,12 @@ cd ${WORKSPACE_ROOT} && rm -rf "work/"
 if [ "$CREATE_ARTIFACTS" = true ]; then
     echo "Create build artifacts"
     cd "${WORKSPACE_ROOT}"
-    mkdir "release" && cd "release"
+    RELEASE_NAME="${APP_NAME}_v${APP_VERSION}"
+    mkdir "${RELEASE_NAME}" && cd "${RELEASE_NAME}"
     unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
-    rm -Rf .git
+    rm -Rf ".git .github"
 
     cd "${MODULE_PATH}"
-    rm -Rf vendor
+    rm -Rf "vendor"
     composer install --no-dev --no-progress --no-suggest --prefer-dist --optimize-autoloader
-    cd "${WORKSPACE_ROOT}release"
-
-    zip -qr "${APP_NAME}_v${APP_VERSION}.zip" .
-    mv "${APP_NAME}_v${APP_VERSION}.zip" ..
-    tar cfz "${APP_NAME}_v${APP_VERSION}.tar.gz" .
-    mv "${APP_NAME}_v${APP_VERSION}.tar.gz" ..
-
-    echo ::set-output name=tar_archive::${APP_NAME}_v${APP_VERSION}.tar.gz
-    echo ::set-output name=zip_archive::${APP_NAME}_v${APP_VERSION}.zip
-
-    cd ${WORKSPACE_ROOT} && rm -rf "release/"
 fi
