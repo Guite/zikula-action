@@ -37,6 +37,8 @@ Note that during a workflow's execution all containers (job, service, actions) g
 ### `database_port`
 **Optional** Port of database. Default `"3306"`.
 
+Note this is the default port (read explanation for `database_host` above).
+
 ### `database_user`
 **Optional** User of database. Default `"zikula"`.
 
@@ -59,12 +61,14 @@ Module archive in `zip` format including vendor dependencies which can be used f
 ```
 uses: guite/zikula-action@master
 with:
-  vendor_name: 'Zikula'
-  module_name: 'MultiHook'
+  vendor_name: Zikula
+  module_name: MultiHook
   module_version: '1.0.0'
-  core_version: 'ZK30DEV'
+  core_version: ZK30DEV
   base_dir: 'src/'
   create_artifacts: true
+  database_host: mysql
+  database_port: 3306
 ```
 
-A dummy project using this GitHub Action can be found [here](https://github.com/Guite/test-actions).
+A sample project using this GitHub Action can be found [here](https://github.com/Guite/test-actions).

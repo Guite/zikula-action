@@ -98,12 +98,7 @@ if [ "$SRC_DIR" != "" ]; then
 fi
 
 echo "Create database"
-echo "mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e \"CREATE DATABASE IF NOT EXISTS ${DB_NAME};\""
 mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
-
-# TEMP HALT WITH ERROR
-echo "TEMP HALT"
-exit 1
 
 echo "Install Zikula Core version ${CORE_VERSION}"
 php ${consoleCmd} zikula:install:start -n --database_host=${DB_HOST} --database_user=${DB_USER} --database_name=${DB_NAME} --database_password=${DB_PASS} --email=admin@example.com --router:request_context:host=localhost --router:request_context:base_url='/'
