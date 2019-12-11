@@ -244,7 +244,7 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpstan,"* ]]; then
     echo "Checks: PHPStan"
     # see https://github.com/phpstan/phpstan
     # level: (0 = loosest - 7 = "max" = strictest), default level is 0
-    ${TOOL_BIN_PATH}phpstan analyse -l=0 -c phpstan.neon "${MODULE_PATH}"
+    ${TOOL_BIN_PATH}phpstan analyse -l=0 -c "${TOOL_CONFIG_PATH}phpstan.neon" "${MODULE_PATH}"
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpinsights,"* ]]; then
     echo "Checks: PHP Insights"
