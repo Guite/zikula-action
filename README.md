@@ -82,9 +82,9 @@ with:
   module_version: '1.0.0'
   core_version: ZK30DEV
   base_dir: 'src/'
-  create_artifacts: true
   database_host: mysql
   database_port: 3306
+  create_artifacts: true
 ```
 
 A sample project using this GitHub Action can be found [here](https://github.com/Guite/test-actions).
