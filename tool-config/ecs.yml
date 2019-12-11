@@ -1,9 +1,0 @@
-parameters:
-    sets:
-        - 'common'
-        - 'clean-code'
-        - 'psr12'
-        - 'symfony'
-        - 'symfony-risky'
-    exclude_files:
-        - '*/vendor/*'

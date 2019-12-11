@@ -17,7 +17,10 @@ DB_USER=${INPUT_DATABASE_USER:zikula}
 DB_PASS=${INPUT_DATABASE_PASS:zikula}
 DB_NAME=${INPUT_DATABASE_NAME:zikula}
 
-TOOLS=${INPUT_TOOLS:all}
+TOOLS=${INPUT_TOOLS:default}
+if [ "$TOOLS" = "default" ]; then
+    TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,php-cs-fixer,phpunit-bridge,psecio-parse,security-checker,churn,phploc,dephpend,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
+fi
 
 # echo "Vendor: ${VENDOR_NAME}"
 # echo "Module: ${MODULE_NAME}"
@@ -170,11 +173,6 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",php-cs-fixer,"* ]]; then
     # see https://cs.symfony.com/
     ${TOOL_BIN_PATH}php-cs-fixer fix --diff --dry-run --config "${TOOL_CONFIG_PATH}php_cs_fixer.dist" "${MODULE_PATH}"
 fi
-if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",ecs,"* ]]; then
-    echo "Checks: easy coding standard"
-    # see https://github.com/Symplify/EasyCodingStandard
-    ${TOOL_BIN_PATH}ecs check "${MODULE_PATH}" --config "${TOOL_CONFIG_PATH}ecs.yml"
-fi
 
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpunit-bridge,"* ]]; then
     # see https://symfony.com/doc/current/components/phpunit_bridge.html
@@ -188,7 +186,7 @@ fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",psecio-parse,"* ]]; then
     echo "Security: Parse"
     # see https://github.com/psecio/parse
-    ${TOOL_BIN_PATH}psecio-parse scan "${MODULE_PATH}"
+    ${TOOL_BIN_PATH}psecio-parse scan --ignore-paths="${VENDOR_PATH}" "${MODULE_PATH}"
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",security-checker,"* ]]; then
     echo "Security: Sensiolabs"
@@ -206,15 +204,12 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phploc,"* ]]; then
     # see https://github.com/sebastianbergmann/phploc
     ${TOOL_BIN_PATH}phploc "${MODULE_PATH}"
 fi
-if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",pdepend,"* ]]; then
-    echo "Info: pdepend"
-    # see https://github.com/pdepend/pdepend
-    ${TOOL_BIN_PATH}pdepend "${MODULE_PATH}"
-fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",dephpend,"* ]]; then
     echo "Info: dephpend"
     # see https://dephpend.com/
-    ${TOOL_BIN_PATH}dephpend dsm "${MODULE_PATH}"
+    echo "Info: dephpend text"
+    ${TOOL_BIN_PATH}dephpend text "${MODULE_PATH}" --no-classes
+    echo "Info: dephpend metrics"
     ${TOOL_BIN_PATH}dephpend metrics "${MODULE_PATH}"
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpmetrics,"* ]]; then
@@ -225,18 +220,18 @@ fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",php-coupling-detector,"* ]]; then
     echo "Info: PHP Coupling Detector"
     # see https://akeneo.github.io/php-coupling-detector/
-    ${TOOL_BIN_PATH}php-coupling-detector detect "${MODULE_PATH}" #--config-file="${TOOL_CONFIG_PATH}php_cd.php"
+    ${TOOL_BIN_PATH}php-coupling-detector detect "${MODULE_PATH}" --config-file="${TOOL_CONFIG_PATH}phpcd.php"
 fi
-
-# TEMP HALT WITH ERROR
-echo "TEMP HALT"
-exit 1
 
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",deprecation-detector,"* ]]; then
     echo "Checks: Deprecation Detector"
     # see https://github.com/sensiolabs-de/deprecation-detector
     ${TOOL_BIN_PATH}deprecation-detector check "${MODULE_PATH}" "${VENDOR_PATH}"
 fi
+# TEMP HALT WITH ERROR
+echo "TEMP HALT"
+exit 1
+
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpcpd,"* ]]; then
     echo "Checks: Copy paste detection"
     # see https://github.com/sebastianbergmann/phpcpd

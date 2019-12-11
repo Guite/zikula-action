@@ -49,18 +49,18 @@ Note this is the default port (read explanation for `database_host` above).
 **Optional** Name of database. Default `"zikula"`.
 
 ### `tools`
-**Optional** Comma-separated list of desired analysis tools. Default `"all"`.  
+**Optional** Comma-separated list of desired analysis tools or `"all"` for all tools.  
 Can be used to improve performance by skipping unwanted tools.  
 Ensure that it also contains a comma at the start and the end.  
-Example value: `",phplint,lint:container,lint:yaml,lint:twig,phpcs,phpunit-bridge,psecio-parse,security-checker,deprecation-detector,phpinsights,"`.
+Default value: `",phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,php-cs-fixer,phpunit-bridge,psecio-parse,security-checker,churn,phploc,dephpend,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,"`.
 
-All currently supported tools:
+Currently supported tools:
 
 * **Checks (lint):** [phplint](https://github.com/overtrue/phplint), [parallel-lint](https://github.com/JakubOnderka/PHP-Parallel-Lint), [lint:container](https://symfony.com/blog/new-in-symfony-4-4-service-container-linter), [lint:yaml](https://symfony.com/doc/current/components/yaml.html#syntax-validation), [lint:twig](https://symfony.com/doc/current/templates.html#linting-twig-templates), 
-* **Checks (coding style):** [phpcs](https://github.com/squizlabs/PHP_CodeSniffer), [php-cs-fixer](https://cs.symfony.com/), [ecs](https://github.com/Symplify/EasyCodingStandard)
+* **Checks (coding style):** [phpcs](https://github.com/squizlabs/PHP_CodeSniffer), [php-cs-fixer](https://cs.symfony.com/)
 * **Tests:** [phpunit-bridge](https://symfony.com/doc/current/components/phpunit_bridge.html) (requires a file named `phpunit.xml.dist` in the module's root folder).
 * **Security:** [psecio-parse](https://github.com/psecio/parse), [security-checker](https://github.com/sensiolabs/security-checker)
-* **Info:** [churn](https://github.com/bmitch/churn-php), [phploc](https://github.com/sebastianbergmann/phploc), [pdepend](https://github.com/pdepend/pdepend), [dephpend](https://dephpend.com/), [phpmetrics](https://github.com/phpmetrics/PhpMetrics), [php-coupling-detector](https://akeneo.github.io/php-coupling-detector/)
+* **Info:** [churn](https://github.com/bmitch/churn-php), [phploc](https://github.com/sebastianbergmann/phploc), [dephpend](https://dephpend.com/), [phpmetrics](https://github.com/phpmetrics/PhpMetrics), [php-coupling-detector](https://akeneo.github.io/php-coupling-detector/)
 * **Checks (other):** [deprecation-detector](https://github.com/sensiolabs-de/deprecation-detector), [phpcpd](https://github.com/sebastianbergmann/phpcpd), [phpmd](https://github.com/phpmd/phpmd), [phan](https://github.com/phan/phan), [phpstan](https://github.com/phpstan/phpstan), [phpinsights](https://phpinsights.com/), [psalm](https://github.com/vimeo/psalm), [phpmnd](https://github.com/povils/phpmnd), [phpa](https://github.com/rskuipers/php-assumptions)
 
 ## Outputs
@@ -84,7 +84,6 @@ with:
   create_artifacts: true
   database_host: mysql
   database_port: 3306
-  tools: ',phplint,lint:container,lint:yaml,lint:twig,phpcs,phpunit-bridge,psecio-parse,security-checker,deprecation-detector,phpinsights,'
 ```
 
 A sample project using this GitHub Action can be found [here](https://github.com/Guite/test-actions).
