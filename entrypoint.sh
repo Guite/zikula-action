@@ -166,7 +166,7 @@ fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpcs,"* ]]; then
     echo "Checks: coding style"
     # see https://github.com/squizlabs/PHP_CodeSniffer
-    ${TOOL_BIN_PATH}phpcs --standard=${TOOL_CONFIG_PATH}phpcs.xml --extensions=php --ignore="${VENDOR_PATH}" "${MODULE_PATH}" --report=full
+    ${TOOL_BIN_PATH}phpcs --standard=${TOOL_CONFIG_PATH}phpcs.xml --extensions=php --warning-severity=0 --ignore="${VENDOR_PATH}" "${MODULE_PATH}" --report=full
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",php-cs-fixer,"* ]]; then
     echo "Checks: fix coding style"
