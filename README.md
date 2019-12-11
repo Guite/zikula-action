@@ -30,7 +30,9 @@ This action downloads and installs a specific Zikula core version in order to ch
 **Optional** Whether to create module archives as build artifacts (set to `true`). Default `false`.
 
 ### `database_host`
-**Optional** Host of database. Default `"172.17.0.2"`.
+**Optional** Host of database. Default `"mysql"`.
+
+Note that during a workflow's execution all containers (job, service, actions) get attached to the same user defined bridge network on the host, meaning all the containers can reach each other over that network, not via the host's localhost networking. Thus, this action connects to your database using the name of the corresponding service as hostname.
 
 ### `database_port`
 **Optional** Port of database. Default `"3306"`.

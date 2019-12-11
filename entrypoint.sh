@@ -8,10 +8,7 @@ CORE=$INPUT_CORE_VERSION
 BASE_DIR=$INPUT_BASE_DIR
 CREATE_ARTIFACTS=${CREATE_ARTIFACTS:false}
 
-DB_HOST=${INPUT_DATABASE_HOST:default}
-if [ "$DB_HOST" = "default" ]; then
-    DB_HOST='172.17.0.2'
-fi
+DB_HOST=${INPUT_DATABASE_HOST:mysql}
 DB_PORT=${INPUT_DATABASE_PORT:default}
 if [ "$DB_PORT" = "default" ]; then
     DB_HOST='3306'
