@@ -67,10 +67,10 @@ Currently supported tools:
 ## Outputs
 
 ### `tar_archive`
-Module archive in `tar.gz` format including vendor dependencies which can be used for a release.
+File name of module archive in `tar.gz` format including vendor dependencies which can be used for a release.
 
 ### `zip_archive`
-Module archive in `zip` format including vendor dependencies which can be used for a release.
+File name of module archive in `zip` format including vendor dependencies which can be used for a release.
 
 ## Example usage
 
