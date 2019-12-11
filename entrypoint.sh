@@ -277,7 +277,8 @@ if [ "$CREATE_ARTIFACTS" = true ]; then
     RELEASE_NAME="${APP_NAME}_v${APP_VERSION}"
     mkdir "${RELEASE_NAME}" && cd "${RELEASE_NAME}"
     unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
-    rm -Rf ".git .github"
+    rm -Rf .git
+    rm -Rf .github
 
     cd "${MODULE_PATH}"
     rm -Rf "vendor"
