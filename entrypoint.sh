@@ -20,7 +20,7 @@ TOOLS=${INPUT_TOOLS:default}
 if [ "$TOOLS" = "default" ]; then
     TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,php-cs-fixer,phpunit-bridge,psecio-parse,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
 fi
-CREATE_ARTIFACTS=${CREATE_ARTIFACTS:false}
+CREATE_ARTIFACTS=${INPUT_CREATE_ARTIFACTS:false}
 
 # echo "Vendor: ${VENDOR_NAME}"
 # echo "Module: ${MODULE_NAME}"
