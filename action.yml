@@ -43,7 +43,7 @@ inputs:
   tools:
     description: Comma-separated list of desired analysis tools
     required: false
-    default: ',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,phpunit-bridge,psecio-parse,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,'
+    default: ',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,'
   create_artifacts:
     description: Create artifacts
     required: false

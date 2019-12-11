@@ -18,7 +18,7 @@ DB_NAME=${INPUT_DATABASE_NAME:zikula}
 
 TOOLS=${INPUT_TOOLS:default}
 if [ "$TOOLS" = "default" ]; then
-    TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,php-cs-fixer,phpunit-bridge,psecio-parse,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
+    TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,php-cs-fixer,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
 fi
 CREATE_ARTIFACTS=${INPUT_CREATE_ARTIFACTS:false}
 
