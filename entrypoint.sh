@@ -131,7 +131,9 @@ php ${consoleCmd} cache:warmup --env=prod --no-debug
 
 # Available tools: https://github.com/jakzal/phpqa/#available-tools
 
-if [ "$TOOLS" = "all" ] || [ "$TOOLS" = *",phplint,"* ]; then
+echo "Running tools: $TOOLS"
+
+if [ "$TOOLS" = "all" ] || [ "$TOOLS" == *",phplint,"* ]; then
     echo "Checks: PHP lint"
     # see https://github.com/overtrue/phplint
     ${TOOL_BIN_PATH}phplint "${MODULE_PATH}" --exclude="${VENDOR_PATH}" --configuration="${TOOL_CONFIG_PATH}phplint.yml"

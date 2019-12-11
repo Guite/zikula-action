@@ -84,6 +84,7 @@ with:
   create_artifacts: true
   database_host: mysql
   database_port: 3306
+  tools: ',phplint,lint:container,lint:yaml,lint:twig,phpcs,phpunit-bridge,psecio-parse,security-checker,deprecation-detector,phpinsights,'
 ```
 
 A sample project using this GitHub Action can be found [here](https://github.com/Guite/test-actions).
