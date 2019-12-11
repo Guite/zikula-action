@@ -30,6 +30,8 @@ DB_NAME=${INPUT_DATABASE_NAME:zikula}
 # echo "DB Pass: ${DB_PASS}"
 # echo "DB Name: ${DB_NAME}"
 
+mysqlCmd="mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e"
+
 echo "Starting process for ${MODULE_NAME}"
 
 APP_NAME="${VENDOR_NAME}${MODULE_NAME}Module"
@@ -98,7 +100,7 @@ if [ "$SRC_DIR" != "" ]; then
 fi
 
 echo "Create database"
-mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
+${mysqlCmd} "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
 
 echo "Install Zikula Core version ${CORE_VERSION}"
 php ${consoleCmd} zikula:install:start -n --database_host=${DB_HOST} --database_user=${DB_USER} --database_name=${DB_NAME} --database_password=${DB_PASS} --password=zkTest4CI --email=admin@example.com --router:request_context:host=localhost --router:request_context:base_url='/'
@@ -110,9 +112,9 @@ unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
 
 php ${consoleCmd} bootstrap:bundles
 if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
-    mysql -h ${DB_HOST} -u ${DB_USER} -p ${DB_PASS} -e "INSERT INTO ${DB_NAME}.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, coreCompatibility) VALUES (NULL, '${APP_NAME}', '3', '${MODULE_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}');"
+    ${mysqlCmd} "INSERT INTO ${DB_NAME}.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, coreCompatibility) VALUES (NULL, '${APP_NAME}', '3', '${MODULE_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}');"
 else
-    mysql -h ${DB_HOST} -u ${DB_USER} -p ${DB_PASS} -e "INSERT INTO ${DB_NAME}.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, core_min, core_max) VALUES (NULL, '${APP_NAME}', '3', '${APP_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}', '3.0.0');"
+    ${mysqlCmd} "INSERT INTO ${DB_NAME}.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, core_min, core_max) VALUES (NULL, '${APP_NAME}', '3', '${APP_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}', '3.0.0');"
 fi
 
 php ${consoleCmd} cache:warmup --env=prod --no-debug
