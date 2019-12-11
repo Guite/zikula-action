@@ -244,7 +244,7 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpstan,"* ]]; then
     echo "Checks: PHPStan"
     # see https://github.com/phpstan/phpstan
     # level: (0 = loosest - 7 = "max" = strictest), default level is 0
-    ${TOOL_BIN_PATH}phpstan analyse -l=0 -c phpstan.neon "${MODULE_PATH}" --ignoredDirs=vendor
+    ${TOOL_BIN_PATH}phpstan analyse -l=0 -c phpstan.neon "${MODULE_PATH}"
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpinsights,"* ]]; then
     echo "Checks: PHP Insights"
@@ -254,7 +254,8 @@ fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",psalm,"* ]]; then
     echo "Checks: Psalm"
     # see https://github.com/vimeo/psalm
-    ${TOOL_BIN_PATH}psalm "${MODULE_PATH}" --config="${TOOL_CONFIG_PATH}psalm.xml" --find-dead-code --threads=8 --diff --diff-methods --show-info=1
+    ${TOOL_BIN_PATH}psalm --init "${MODULE_PATH}"
+    ${TOOL_BIN_PATH}psalm "${MODULE_PATH}" --find-dead-code --threads=8 --diff --diff-methods --show-info=1
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpmnd,"* ]]; then
     echo "Checks: PHP Magic Number Detector"
