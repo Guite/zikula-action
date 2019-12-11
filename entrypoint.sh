@@ -158,10 +158,6 @@ if [ "$TOOLS" = "all" ] || [ "$TOOLS" = *",lint:twig,"* ]; then
     fi
 fi
 
-# TEMP HALT WITH ERROR
-echo "TEMP HALT"
-exit 1
-
 if [ "$TOOLS" = "all" ] || [ "$TOOLS" = *",phpcs,"* ]; then
     echo "Checks: coding style"
     # see https://github.com/squizlabs/PHP_CodeSniffer
@@ -229,6 +225,11 @@ if [ "$TOOLS" = "all" ] || [ "$TOOLS" = *",php-coupling-detector,"* ]; then
     # see https://akeneo.github.io/php-coupling-detector/
     ${TOOL_BIN_PATH}php-coupling-detector detect "${MODULE_PATH}" #--config-file="${TOOL_CONFIG_PATH}php_cd.php"
 fi
+
+# TEMP HALT WITH ERROR
+echo "TEMP HALT"
+exit 1
+
 if [ "$TOOLS" = "all" ] || [ "$TOOLS" = *",deprecation-detector,"* ]; then
     echo "Checks: Deprecation Detector"
     # see https://github.com/sensiolabs-de/deprecation-detector
