@@ -20,10 +20,6 @@ inputs:
   base_dir:
     description: Path to the directory containing the modules folder (including trailing slash)
     required: false
-  create_artifacts:
-    description: Create artifacts
-    required: false
-    default: false
   database_host:
     description: Database host
     required: false
@@ -47,7 +43,11 @@ inputs:
   tools:
     description: Comma-separated list of desired analysis tools
     required: false
-    default: all
+    default: ',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,php-cs-fixer,phpunit-bridge,psecio-parse,security-checker,churn,phploc,dephpend,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
+  create_artifacts:
+    description: Create artifacts
+    required: false
+    default: false
 outputs:
   tar_archive:
     description: Module archive in tar.gz format which can be used for a release

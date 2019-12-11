@@ -26,9 +26,6 @@ This action downloads and installs a specific Zikula core version in order to ch
 ### `base_dir`
 **Optional** Path to the directory containing the `modules/` folder (including trailing slash). Default `""`.
 
-### `create_artifacts`
-**Optional** Whether to create module archives as build artifacts (set to `true`). Default `false`.
-
 ### `database_host`
 **Optional** Host of database. Default `"mysql"`.
 
@@ -62,6 +59,9 @@ Currently supported tools:
 * **Security:** [psecio-parse](https://github.com/psecio/parse), [security-checker](https://github.com/sensiolabs/security-checker)
 * **Info:** [churn](https://github.com/bmitch/churn-php), [phploc](https://github.com/sebastianbergmann/phploc), [dephpend](https://dephpend.com/), [phpmetrics](https://github.com/phpmetrics/PhpMetrics), [php-coupling-detector](https://akeneo.github.io/php-coupling-detector/)
 * **Checks (other):** [deprecation-detector](https://github.com/sensiolabs-de/deprecation-detector), [phpcpd](https://github.com/sebastianbergmann/phpcpd), [phpmd](https://github.com/phpmd/phpmd), [phan](https://github.com/phan/phan), [phpstan](https://github.com/phpstan/phpstan), [phpinsights](https://phpinsights.com/), [psalm](https://github.com/vimeo/psalm), [phpmnd](https://github.com/povils/phpmnd), [phpa](https://github.com/rskuipers/php-assumptions)
+
+### `create_artifacts`
+**Optional** Whether to create module archives as build artifacts (set to `true`). Default `false`.
 
 ## Outputs
 

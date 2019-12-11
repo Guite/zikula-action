@@ -6,7 +6,6 @@ MODULE_NAME=$INPUT_MODULE_NAME
 APP_VERSION=$INPUT_MODULE_VERSION
 CORE=$INPUT_CORE_VERSION
 BASE_DIR=$INPUT_BASE_DIR
-CREATE_ARTIFACTS=${CREATE_ARTIFACTS:false}
 
 DB_HOST=${INPUT_DATABASE_HOST:mysql}
 DB_PORT=${INPUT_DATABASE_PORT:default}
@@ -21,19 +20,20 @@ TOOLS=${INPUT_TOOLS:default}
 if [ "$TOOLS" = "default" ]; then
     TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,php-cs-fixer,phpunit-bridge,psecio-parse,security-checker,churn,phploc,dephpend,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
 fi
+CREATE_ARTIFACTS=${CREATE_ARTIFACTS:false}
 
 # echo "Vendor: ${VENDOR_NAME}"
 # echo "Module: ${MODULE_NAME}"
 # echo "Version: ${APP_VERSION}"
 # echo "Core: ${CORE}"
 # echo "Base dir: ${BASE_DIR}"
-# echo "Create artifacts: ${CREATE_ARTIFACTS}"
-
 # echo "DB Host: ${DB_HOST}"
 # echo "DB Port: ${DB_PORT}"
 # echo "DB User: ${DB_USER}"
 # echo "DB Pass: ${DB_PASS}"
 # echo "DB Name: ${DB_NAME}"
+# echo "Tools: ${TOOLS}"
+# echo "Create artifacts: ${CREATE_ARTIFACTS}"
 
 mysqlCmd="mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e"
 
@@ -205,11 +205,8 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phploc,"* ]]; then
     ${TOOL_BIN_PATH}phploc "${MODULE_PATH}"
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",dephpend,"* ]]; then
-    echo "Info: dephpend"
-    # see https://dephpend.com/
-    echo "Info: dephpend text"
-    ${TOOL_BIN_PATH}dephpend text "${MODULE_PATH}" --no-classes
     echo "Info: dephpend metrics"
+    # see https://dephpend.com/
     ${TOOL_BIN_PATH}dephpend metrics "${MODULE_PATH}"
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpmetrics,"* ]]; then
@@ -228,10 +225,6 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",deprecation-detector,"* ]]; then
     # see https://github.com/sensiolabs-de/deprecation-detector
     ${TOOL_BIN_PATH}deprecation-detector check "${MODULE_PATH}" "${VENDOR_PATH}"
 fi
-# TEMP HALT WITH ERROR
-echo "TEMP HALT"
-exit 1
-
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpcpd,"* ]]; then
     echo "Checks: Copy paste detection"
     # see https://github.com/sebastianbergmann/phpcpd
