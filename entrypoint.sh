@@ -167,7 +167,7 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",doctrine-info,"* ]]; then
     echo "Info: Doctrine Mappings"
     php ${consoleCmd} doctrine:mapping:info
     echo "Info: Doctrine Schema"
-    php ${consoleCmd} doctrine:schema:validate
+    php ${consoleCmd} doctrine:schema:validate --skip-sync
 fi
 
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpcs,"* ]]; then
