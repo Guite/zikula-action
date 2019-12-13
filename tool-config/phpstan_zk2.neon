@@ -7,4 +7,4 @@ parameters:
         - */vendor/*
     symfony:
         container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml
-        # see also https://blog.martinhujer.cz/how-to-configure-phpstan-for-symfony-applications/
+        # TODO more steps; see https://blog.martinhujer.cz/how-to-configure-phpstan-for-symfony-applications/
