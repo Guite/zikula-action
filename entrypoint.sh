@@ -244,7 +244,13 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpstan,"* ]]; then
     echo "Checks: PHPStan"
     # see https://github.com/phpstan/phpstan
     # level: (0 = loosest - 7 = "max" = strictest), default level is 0
-    ${TOOL_BIN_PATH}phpstan analyse -l=0 -c "${TOOL_CONFIG_PATH}phpstan.neon" "${MODULE_PATH}"
+    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
+        ${TOOL_BIN_PATH}phpstan analyse -l=0 -c "${TOOL_CONFIG_PATH}phpstan_zk3.neon" "${MODULE_PATH}"
+    elif [ "$CORE" = "ZK20" ] || [ "$CORE" = "ZK2DEV" ]; then
+        ${TOOL_BIN_PATH}phpstan analyse -l=0 -c "${TOOL_CONFIG_PATH}phpstan_zk2.neon" "${MODULE_PATH}"
+    else
+        ${TOOL_BIN_PATH}phpstan analyse -l=0 -c "${TOOL_CONFIG_PATH}phpstan_zk1.neon" "${MODULE_PATH}"
+    fi
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpinsights,"* ]]; then
     echo "Checks: PHP Insights"
