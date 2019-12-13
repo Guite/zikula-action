@@ -18,7 +18,7 @@ DB_NAME=${INPUT_DATABASE_NAME:zikula}
 
 TOOLS=${INPUT_TOOLS:default}
 if [ "$TOOLS" = "default" ]; then
-    TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,php-cs-fixer,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
+    TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,doctrine-info,phpcs,php-cs-fixer,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
 fi
 CREATE_ARTIFACTS=${INPUT_CREATE_ARTIFACTS:false}
 
@@ -161,6 +161,13 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",lint:twig,"* ]]; then
     if [ -d "app/" ]; then
         php ${consoleCmd} lint:twig "app/"
     fi
+fi
+
+if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",doctrine-info,"* ]]; then
+    echo "Info: Doctrine Mappings"
+    php ${consoleCmd} doctrine:mapping:info
+    echo "Info: Doctrine Schema"
+    php ${consoleCmd} doctrine:schema:validate
 fi
 
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpcs,"* ]]; then

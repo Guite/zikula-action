@@ -49,7 +49,7 @@ Note this is the default port (read explanation for `database_host` above).
 **Optional** Comma-separated list of desired analysis tools or `"all"` for all tools.  
 Can be used to improve performance by skipping unwanted tools.  
 Ensure that it also contains a comma at the start and the end.  
-Default value: `",phplint,parallel-lint,lint:container,lint:yaml,lint:twig,phpcs,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,"`.
+Default value: `",phplint,parallel-lint,lint:container,lint:yaml,lint:twig,doctrine-info,phpcs,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,"`.
 
 Currently supported tools:
 
