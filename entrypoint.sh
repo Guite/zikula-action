@@ -115,7 +115,8 @@ mkdir -p "web/imagine/cache"
 echo "Install ${APP_NAME}"
 unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
 
-php ${consoleCmd} bootstrap:bundles
+#TODO reenable or remove
+# php ${consoleCmd} bootstrap:bundles
 if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
     ${mysqlCmd} "INSERT INTO ${DB_NAME}.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, coreCompatibility) VALUES (NULL, '${APP_NAME}', '3', '${MODULE_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}');"
 else
