@@ -157,9 +157,16 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",lint:yaml,"* ]]; then
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",lint:twig,"* ]]; then
     echo "Checks: Twig lint"
-    php ${consoleCmd} lint:twig "@${APP_NAME}"
-    if [ -d "app/" ]; then
-        php ${consoleCmd} lint:twig "app/"
+    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
+        php ${consoleCmd} lint:twig "@${APP_NAME}" --show-deprecations
+        if [ -d "app/" ]; then
+            php ${consoleCmd} lint:twig "app/" --show-deprecations
+        fi
+    else
+        php ${consoleCmd} lint:twig "@${APP_NAME}"
+        if [ -d "app/" ]; then
+            php ${consoleCmd} lint:twig "app/"
+        fi
     fi
 fi
 
