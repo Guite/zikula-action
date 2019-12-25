@@ -13,8 +13,9 @@ LABEL "maintainer"="Axel Guckelsberger <info@guite.de>"
 # install phpstan extensions
 RUN apk update && apk upgrade && apk --no-cache add bash build-base autoconf mysql-client zip \
   && docker-php-ext-install pdo_mysql \
-  && pecl install pcov && docker-php-ext-enable pcov \
-  && composer global bin phpstan require phpstan/phpstan-doctrine phpstan/phpstan-phpunit phpstan/phpstan-symfony
+  && pecl install pcov && docker-php-ext-enable pcov
+#  \
+#  && composer global bin phpstan require phpstan/phpstan-doctrine phpstan/phpstan-phpunit phpstan/phpstan-symfony
 
 COPY entrypoint.sh /entrypoint.sh
 
