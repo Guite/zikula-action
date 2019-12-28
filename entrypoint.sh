@@ -117,6 +117,8 @@ unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
 
 if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
     php ${consoleCmd} zikula:extension:install "${APP_NAME}"
+    echo "Basic information about the module and its status:"
+    php ${consoleCmd} zikula:extension:status "${APP_NAME}"
 else
     php ${consoleCmd} bootstrap:bundles
     if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
