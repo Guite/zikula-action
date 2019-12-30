@@ -7,5 +7,5 @@ parameters:
         - */vendor/*
     symfony:
         # Symfony 5
-        #container_xml_path: '%rootDir%/../../../var/cache/dev/App_KernelDevDebugContainer.xml'
+        container_xml_path: '%rootDir%/../../../var/cache/dev/App_KernelDevDebugContainer.xml'
         # TODO more steps; see https://blog.martinhujer.cz/how-to-configure-phpstan-for-symfony-applications/
