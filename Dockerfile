@@ -11,7 +11,7 @@ LABEL "maintainer"="Axel Guckelsberger <info@guite.de>"
 
 # install pcov support (faster than xdebug)
 # install phpstan extensions
-RUN apk update && apk upgrade && apk --no-cache add bash build-base autoconf mysql-client zip libpng-dev \
+RUN apk update && apk upgrade && apk --no-cache add bash build-base autoconf mysql-client zip libpng-dev libxslt-dev \
   && docker-php-ext-install pdo_mysql gd xsl \
   && pecl install pcov && docker-php-ext-enable pcov
 #  \
