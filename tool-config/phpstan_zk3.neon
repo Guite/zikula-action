@@ -6,8 +6,6 @@ parameters:
     excludes_analyse:
         - */vendor/*
     symfony:
-        # Symfony 4
-        container_xml_path: '%rootDir%/../../../var/cache/dev/srcApp_KernelDevDebugContainer.xml'
         # Symfony 5
         #container_xml_path: '%rootDir%/../../../var/cache/dev/App_KernelDevDebugContainer.xml'
         # TODO more steps; see https://blog.martinhujer.cz/how-to-configure-phpstan-for-symfony-applications/
