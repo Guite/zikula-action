@@ -49,11 +49,12 @@ Note this is the default port (read explanation for `database_host` above).
 **Optional** Comma-separated list of desired analysis tools or `"all"` for all tools.  
 Can be used to improve performance by skipping unwanted tools.  
 Ensure that it also contains a comma at the start and the end.  
-Default value: `",phplint,parallel-lint,lint:container,lint:yaml,lint:twig,doctrine-info,phpcs,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,"`.
+Default value: `",phplint,parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,phpcs,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,"`.
 
 Currently supported tools:
 
-* **Checks (lint):** [phplint](https://github.com/overtrue/phplint), [parallel-lint](https://github.com/JakubOnderka/PHP-Parallel-Lint), [lint:container](https://symfony.com/blog/new-in-symfony-4-4-service-container-linter), [lint:yaml](https://symfony.com/doc/current/components/yaml.html#syntax-validation), [lint:twig](https://symfony.com/doc/current/templates.html#linting-twig-templates), 
+* **Checks (lint):** [phplint](https://github.com/overtrue/phplint), [parallel-lint](https://github.com/JakubOnderka/PHP-Parallel-Lint), [lint:container](https://symfony.com/blog/new-in-symfony-4-4-service-container-linter), [lint:yaml](https://symfony.com/doc/current/components/yaml.html#syntax-validation), [lint:twig](https://symfony.com/doc/current/templates.html#linting-twig-templates)
+* **Translations:** translations executes the `translation:extract` command
 * **Checks (coding style):** [phpcs](https://github.com/squizlabs/PHP_CodeSniffer), [php-cs-fixer](https://cs.symfony.com/)
 * **Tests:** [phpunit-bridge](https://symfony.com/doc/current/components/phpunit_bridge.html) (requires a file named `phpunit.xml.dist` in the module's root folder).
 * **Security:** [psecio-parse](https://github.com/psecio/parse), [security-checker](https://github.com/sensiolabs/security-checker)

@@ -18,7 +18,7 @@ DB_NAME=${INPUT_DATABASE_NAME:zikula}
 
 TOOLS=${INPUT_TOOLS:default}
 if [ "$TOOLS" = "default" ]; then
-    TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,doctrine-info,phpcs,php-cs-fixer,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
+    TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,phpcs,php-cs-fixer,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
 fi
 CREATE_ARTIFACTS=${INPUT_CREATE_ARTIFACTS:false}
 
@@ -171,6 +171,12 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",lint:twig,"* ]]; then
         if [ -d "app/" ]; then
             php ${consoleCmd} lint:twig "app/"
         fi
+    fi
+fi
+if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",translations,"* ]]; then
+    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
+        echo "Checks: Translation extraction"
+        php -dmemory_limit=2G bin/console translation:extract --bundle="${APP_NAME}" extension en
     fi
 fi
 
