@@ -101,8 +101,7 @@ if [ "$SRC_DIR" != "" ]; then
     echo "Install core dependencies"
     composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
-    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
-    else
+    if [ "$CORE" != "ZK30" ] && [ "$CORE" != "ZK3DEV" ]; then
         cd "${SRC_DIR}"
     fi
 fi
