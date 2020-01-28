@@ -163,8 +163,8 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",lint:twig,"* ]]; then
     echo "Checks: Twig lint"
     if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
         php ${consoleCmd} lint:twig --show-deprecations "@${APP_NAME}"
-        if [ -d "app/" ]; then
-            php ${consoleCmd} lint:twig --show-deprecations "app/"
+        if [ -d "templates/" ]; then
+            php ${consoleCmd} lint:twig --show-deprecations "templates/"
         fi
     else
         php ${consoleCmd} lint:twig "@${APP_NAME}"
