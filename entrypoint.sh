@@ -101,7 +101,10 @@ if [ "$SRC_DIR" != "" ]; then
     echo "Install core dependencies"
     composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
-    cd "${SRC_DIR}"
+    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
+    else
+        cd "${SRC_DIR}"
+    fi
 fi
 
 echo "Create database"
@@ -116,12 +119,20 @@ else
     mkdir -p "web/imagine/cache"
 fi
 
+if [ "$SRC_DIR" != "" ]; then
+    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
+        cd "${SRC_DIR}"
+    fi
+fi
 echo "Install ${APP_NAME}"
 unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
+if [ "$SRC_DIR" != "" ]; then
+    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
+        cd ..
+    fi
+fi
 
 if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
-    cd ..
-
     php ${consoleCmd} zikula:extension:install "${APP_NAME}"
 else
     php ${consoleCmd} bootstrap:bundles
