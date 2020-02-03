@@ -40,7 +40,10 @@ mysqlCmd="mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e"
 echo "Starting process for ${MODULE_NAME}"
 
 APP_NAME="${VENDOR_NAME}${MODULE_NAME}Module"
-MODULE_PATH="${BASE_DIR}modules/${VENDOR_NAME}/${MODULE_NAME}Module"
+MODULE_PATH="${BASE_DIR}extensions/${VENDOR_NAME}/${MODULE_NAME}Module"
+if [ ! -d "$MODULE_PATH" ]; then
+    MODULE_PATH="${BASE_DIR}modules/${VENDOR_NAME}/${MODULE_NAME}Module"
+fi
 VENDOR_PATH="${MODULE_PATH}/vendor"
 LC_MODULE="$( echo "${MODULE_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
 TOOL_BIN_PATH="/tools/"
