@@ -44,7 +44,6 @@ MODULE_PATH="${BASE_DIR}extensions/${VENDOR_NAME}/${MODULE_NAME}Module"
 if [ ! -d "$MODULE_PATH" ]; then
     MODULE_PATH="${BASE_DIR}modules/${VENDOR_NAME}/${MODULE_NAME}Module"
 fi
-VENDOR_PATH="${MODULE_PATH}/vendor"
 LC_MODULE="$( echo "${MODULE_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
 TOOL_BIN_PATH="/tools/"
 TOOL_CONFIG_PATH="/tool-config/"
@@ -161,6 +160,7 @@ MODULE_PATH="${SRC_DIR}extensions/${VENDOR_NAME}/${MODULE_NAME}Module"
 if [ ! -d "$MODULE_PATH" ]; then
     MODULE_PATH="${SRC_DIR}modules/${VENDOR_NAME}/${MODULE_NAME}Module"
 fi
+VENDOR_PATH="${MODULE_PATH}/vendor"
 
 echo "Running tools: $TOOLS"
 
@@ -242,11 +242,6 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",security-checker,"* ]]; then
     ${TOOL_BIN_PATH}security-checker security:check "${MODULE_PATH}/composer.lock"
 fi
 
-if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",churn,"* ]]; then
-    echo "Info: churn"
-    # see https://github.com/bmitch/churn-php
-    ${TOOL_BIN_PATH}churn run -c "${TOOL_CONFIG_PATH}churn.yml" "${MODULE_PATH}"
-fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phploc,"* ]]; then
     echo "Info: phploc"
     # see https://github.com/sebastianbergmann/phploc
