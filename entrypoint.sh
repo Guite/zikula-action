@@ -329,6 +329,10 @@ if [ "$CREATE_ARTIFACTS" = true ]; then
     rm -Rf .git
     rm -Rf .github
 
+    MODULE_PATH="${BASE_DIR}extensions/${VENDOR_NAME}/${MODULE_NAME}Module"
+    if [ ! -d "$MODULE_PATH" ]; then
+        MODULE_PATH="${BASE_DIR}modules/${VENDOR_NAME}/${MODULE_NAME}Module"
+    fi
     cd "${MODULE_PATH}"
     rm -Rf "vendor"
     composer install --no-dev --no-progress --no-suggest --prefer-dist --optimize-autoloader
