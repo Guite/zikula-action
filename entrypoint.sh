@@ -157,13 +157,12 @@ fi
 
 # Available tools: https://github.com/jakzal/phpqa/#available-tools
 
-echo "Running tools: $TOOLS"
+MODULE_PATH="${SRC_DIR}extensions/${VENDOR_NAME}/${MODULE_NAME}Module"
+if [ ! -d "$MODULE_PATH" ]; then
+    MODULE_PATH="${SRC_DIR}modules/${VENDOR_NAME}/${MODULE_NAME}Module"
+fi
 
-# TODO LOKAL TESTEN
-echo "DEBUG"
-pwd
-ls -l
-echo "${MODULE_PATH}"
+echo "Running tools: $TOOLS"
 
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phplint,"* ]]; then
     echo "Checks: PHP lint"
