@@ -30,7 +30,7 @@ This action downloads and installs a specific Zikula core version in order to ch
 
 ### `base_dir`
 
-**Optional** Path to the directory containing the `modules/` folder (including trailing slash). Default `""`.
+**Optional** Path to the directory containing the `extensions/` folder (including trailing slash). Default `""`.
 
 ### `database_host`
 

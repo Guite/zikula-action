@@ -18,7 +18,7 @@ inputs:
     required: true
     default: ZK20
   base_dir:
-    description: Path to the directory containing the modules folder (including trailing slash)
+    description: Path to the directory containing the extensions folder (including trailing slash)
     required: false
   database_host:
     description: Database host
