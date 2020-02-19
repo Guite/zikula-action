@@ -159,6 +159,12 @@ fi
 
 echo "Running tools: $TOOLS"
 
+# TODO LOKAL TESTEN
+echo "DEBUG"
+pwd
+ls -l
+echo "${MODULE_PATH}"
+
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phplint,"* ]]; then
     echo "Checks: PHP lint"
     # see https://github.com/overtrue/phplint
