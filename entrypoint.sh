@@ -227,7 +227,7 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpunit-bridge,"* ]]; then
     TESTSUITE_PATH="${MODULE_PATH}/phpunit.xml.dist"
     if [ -e "${TESTSUITE_PATH}" ]; then
         echo "Checks: Unit tests with coverage"
-        php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~vendor~" ${TOOL_BIN_PATH}/simple-phpunit "${MODULE_PATH}" --coverage-text
+        php -dpcov.enabled=1 -dpcov.directory="${MODULE_PATH}" -dpcov.exclude="~vendor~" ${TOOL_BIN_PATH}/simple-phpunit -c "${TESTSUITE_PATH}" "${MODULE_PATH}" --coverage-text
     fi
 fi
 
