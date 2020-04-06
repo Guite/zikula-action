@@ -1,39 +1,39 @@
 #!/bin/bash
 
 WORKSPACE_ROOT="${GITHUB_WORKSPACE}/"
-VENDOR_NAME=$INPUT_VENDOR_NAME
-MODULE_NAME=$INPUT_MODULE_NAME
-APP_VERSION=$INPUT_MODULE_VERSION
-CORE=$INPUT_CORE_VERSION
-BASE_DIR=$INPUT_BASE_DIR
+VENDOR_NAME=$1
+MODULE_NAME=$2
+APP_VERSION=$3
+CORE=$4
+BASE_DIR=$5
+CREATE_ARTIFACTS=${6:false}
 
-DB_HOST=${INPUT_DATABASE_HOST:mysql}
-DB_PORT=${INPUT_DATABASE_PORT:default}
+DB_HOST=${7:mysql}
+DB_PORT=${8:default}
 if [ "$DB_PORT" = "default" ]; then
     DB_HOST='3306'
 fi
-DB_USER=${INPUT_DATABASE_USER:zikula}
-DB_PASS=${INPUT_DATABASE_PASS:zikula}
-DB_NAME=${INPUT_DATABASE_NAME:zikula}
+DB_USER=${9:zikula}
+DB_PASS=${10:zikula}
+DB_NAME=${11:zikula}
 
-TOOLS=${INPUT_TOOLS:default}
+TOOLS=${12:default}
 if [ "$TOOLS" = "default" ]; then
     TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,phpcs,php-cs-fixer,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
 fi
-CREATE_ARTIFACTS=${INPUT_CREATE_ARTIFACTS:false}
 
 # echo "Vendor: ${VENDOR_NAME}"
 # echo "Module: ${MODULE_NAME}"
 # echo "Version: ${APP_VERSION}"
 # echo "Core: ${CORE}"
 # echo "Base dir: ${BASE_DIR}"
+# echo "Create artifacts: ${CREATE_ARTIFACTS}"
 # echo "DB Host: ${DB_HOST}"
 # echo "DB Port: ${DB_PORT}"
 # echo "DB User: ${DB_USER}"
 # echo "DB Pass: ${DB_PASS}"
 # echo "DB Name: ${DB_NAME}"
 # echo "Tools: ${TOOLS}"
-# echo "Create artifacts: ${CREATE_ARTIFACTS}"
 
 mysqlCmd="mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e"
 
