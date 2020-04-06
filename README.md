@@ -8,13 +8,13 @@ This action downloads and installs a specific Zikula core version in order to ch
 
 ## Inputs
 
-1. Name of vendor. Default `"Acme"`.
-2. Name of module without vendor and `Module` suffix. Default `"News"`.
-3. Version of module using SemVer notation. Default `"1.0.0"`.
+1. Name of vendor. Example: `Acme`.
+2. Name of module without vendor and `Module` suffix. Example: `News`.
+3. Version of module using SemVer notation. Example: `1.0.0`.
 4. The Zikula version which should be used. Must be one of the following options:
   * `ZK30` - Targets the last stable Zikula 3.0.x version.
   * `ZK3DEV` - Targets the last unstable Zikula 3.x version (Git branch).
-  * `ZK20` - Targets the last stable Zikula 2.0.x version. This is the default value.
+  * `ZK20` - Targets the last stable Zikula 2.0.x version.
   * `ZK2DEV` - Targets the last unstable Zikula 2.x version (Git branch).
   * `ZK15` - Targets the last stable Zikula 1.5.x version.
   * `ZK15DEV` - Targets the last unstable Zikula 1.5.x version (Git branch).

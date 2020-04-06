@@ -4,19 +4,15 @@ inputs:
   vendor_name:
     description: Vendor name
     required: true
-    default: Acme
   module_name:
     description: Module name
     required: true
-    default: News
   module_version:
     description: Module version
     required: true
-    default: '1.0.0'
   core_version:
     description: Core version
     required: true
-    default: ZK20
   base_dir:
     description: Path to the directory containing the extensions folder (including trailing slash)
     required: false
