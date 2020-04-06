@@ -87,7 +87,7 @@ If `create_artifacts` is set to `true` then as a result you will have a director
 ## Example usage
 
 ```
-uses: guite/zikula-action@master
+uses: docker://guite/zikula-action:latest
 with:
   vendor_name: Zikula
   module_name: MultiHook
