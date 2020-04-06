@@ -20,14 +20,14 @@ This action downloads and installs a specific Zikula core version in order to ch
   - `ZK15DEV` - Targets the last unstable Zikula 1.5.x version (Git branch).
 5. Path to the directory containing the `extensions/` folder (including trailing slash). Default `""`.
 6. Whether to create module archives as build artifacts (set to `true`). Default `false`.
-7. Host of database. Default `"mysql"`.
+7. Host of database. Default `mysql`.
   - Note that during a workflow's execution all containers (job, service, actions) get attached to the same user defined bridge network on the host, meaning all the containers can reach each other over that network, not via the host's localhost networking. Thus, this action connects to your database using the name of the corresponding service as hostname.
-8. Port of database. Default `"3306"`.
+8. Port of database. Default `3306`.
   - Note this is the default port (read explanation for `database_host` above).
-9. User of database. Default `"zikula"`.
-10. Password of database. Default `"zikula"`.
-11. Name of database. Default `"zikula"`.
-12. Comma-separated list of desired analysis tools or `"all"` for all tools.
+9. User of database. Default `zikula`.
+10. Password of database. Default `zikula`.
+11. Name of database. Default `zikula`.
+12. Comma-separated list of desired analysis tools or `all` for all tools.
   - Can be used to improve performance by skipping unwanted tools.
   - Ensure that it also contains a comma at the start and the end.
   - Default value: `",phplint,parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,phpcs,phpunit-bridge,security-checker,phploc,phpmetrics,php-coupling-detector,deprecation-detector,"`.
