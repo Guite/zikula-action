@@ -17,23 +17,23 @@ DB_USER=${9:-zikula}
 DB_PASS=${10:-zikula}
 DB_NAME=${11:-zikula}
 
-TOOLS=${12:default}
+TOOLS=${12:-default}
 if [ "$TOOLS" = "default" ]; then
     TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,phpcs,php-cs-fixer,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
 fi
 
-# echo "Vendor: ${VENDOR_NAME}"
-# echo "Module: ${MODULE_NAME}"
-# echo "Version: ${APP_VERSION}"
-# echo "Core: ${CORE}"
-# echo "Base dir: ${BASE_DIR}"
-# echo "Create artifacts: ${CREATE_ARTIFACTS}"
-# echo "DB Host: ${DB_HOST}"
-# echo "DB Port: ${DB_PORT}"
-# echo "DB User: ${DB_USER}"
-# echo "DB Pass: ${DB_PASS}"
-# echo "DB Name: ${DB_NAME}"
-# echo "Tools: ${TOOLS}"
+echo "Vendor: ${VENDOR_NAME}"
+echo "Module: ${MODULE_NAME}"
+echo "Version: ${APP_VERSION}"
+echo "Core: ${CORE}"
+echo "Base dir: ${BASE_DIR}"
+echo "Create artifacts: ${CREATE_ARTIFACTS}"
+echo "DB Host: ${DB_HOST}"
+echo "DB Port: ${DB_PORT}"
+echo "DB User: ${DB_USER}"
+echo "DB Pass: ${DB_PASS}"
+echo "DB Name: ${DB_NAME}"
+echo "Tools: ${TOOLS}"
 
 mysqlCmd="mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e"
 
