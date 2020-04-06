@@ -6,16 +6,16 @@ MODULE_NAME=$2
 APP_VERSION=$3
 CORE=$4
 BASE_DIR=$5
-CREATE_ARTIFACTS=${6:false}
+CREATE_ARTIFACTS=${6:-false}
 
-DB_HOST=${7:mysql}
-DB_PORT=${8:default}
+DB_HOST=${7:-mysql}
+DB_PORT=${8:-default}
 if [ "$DB_PORT" = "default" ]; then
     DB_HOST='3306'
 fi
-DB_USER=${9:zikula}
-DB_PASS=${10:zikula}
-DB_NAME=${11:zikula}
+DB_USER=${9:-zikula}
+DB_PASS=${10:-zikula}
+DB_NAME=${11:-zikula}
 
 TOOLS=${12:default}
 if [ "$TOOLS" = "default" ]; then
