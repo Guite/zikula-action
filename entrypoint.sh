@@ -129,7 +129,11 @@ echo "Install ${APP_NAME}"
 unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
 if [ "$BASE_DIR" != "" ]; then
     cd "$BASE_DIR"
-    mv "extensions" "${WORKSPACE_ROOT}${SRC_DIR}"
+    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
+        mv "extensions" "${WORKSPACE_ROOT}${SRC_DIR}"
+    else
+        mv "modules" "${WORKSPACE_ROOT}${SRC_DIR}"
+    fi
     cd "${WORKSPACE_ROOT}${SRC_DIR}"
     rm -rf "$BASE_DIR"
 fi
