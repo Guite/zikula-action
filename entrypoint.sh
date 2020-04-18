@@ -163,10 +163,7 @@ fi
 
 # Available tools: https://github.com/jakzal/phpqa/#available-tools
 
-MODULE_PATH="${SRC_DIR}extensions/${VENDOR_NAME}/${MODULE_NAME}Module"
-if [ ! -d "$MODULE_PATH" ]; then
-    MODULE_PATH="${SRC_DIR}modules/${VENDOR_NAME}/${MODULE_NAME}Module"
-fi
+MODULE_PATH="${SRC_DIR}${EXTENSION_FOLDER}/${VENDOR_NAME}/${MODULE_NAME}Module"
 VENDOR_PATH="${MODULE_PATH}/vendor"
 
 echo "Running tools: $TOOLS"
