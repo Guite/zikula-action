@@ -52,6 +52,7 @@ echo "Install dependencies of ${APP_NAME}"
 cd "${MODULE_PATH}"
 composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 cd ${WORKSPACE_ROOT}
+zip -qr "${APP_NAME}.zip" .
 mkdir -p "work" && cd "work/"
 
 CORE_BRANCH=""
