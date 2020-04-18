@@ -52,7 +52,14 @@ echo "Install dependencies of ${APP_NAME}"
 cd "${MODULE_PATH}"
 composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 cd ${WORKSPACE_ROOT}
-zip -qr "${APP_NAME}.zip" .
+if [ "$SRC_DIR" != "" ]; then
+    cd "${SRC_DIR}"
+    zip -qr "${APP_NAME}.zip" .
+    mv "${APP_NAME}.zip" ${WORKSPACE_ROOT}
+    cd ${WORKSPACE_ROOT}
+else
+    zip -qr "${APP_NAME}.zip" .
+fi
 mkdir -p "work" && cd "work/"
 
 CORE_BRANCH=""
