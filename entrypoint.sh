@@ -41,7 +41,7 @@ echo "Starting process for ${MODULE_NAME}"
 
 APP_NAME="${VENDOR_NAME}${MODULE_NAME}Module"
 MODULE_PATH="${BASE_DIR}extensions/${VENDOR_NAME}/${MODULE_NAME}Module"
-if [ ! -d "$MODULE_PATH" ]; then
+if [ "$CORE" != "ZK30" ] && [ "$CORE" != "ZK3DEV" ]; then
     MODULE_PATH="${BASE_DIR}modules/${VENDOR_NAME}/${MODULE_NAME}Module"
 fi
 LC_MODULE="$( echo "${MODULE_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
