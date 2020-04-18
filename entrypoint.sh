@@ -130,8 +130,8 @@ echo "Install ${APP_NAME}"
 unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
 if [ "$BASE_DIR" != "" ]; then
     cd "$BASE_DIR"
-    cp -R "${EXTENSION_FOLDER}" "${WORKSPACE_ROOT}${CORE_DIRECTORY}/${SRC_DIR}"
-    cd "${WORKSPACE_ROOT}${CORE_DIRECTORY}/${SRC_DIR}"
+    cp -R "${EXTENSION_FOLDER}" "${WORKSPACE_ROOT}work/${CORE_DIRECTORY}/${SRC_DIR}"
+    cd "${WORKSPACE_ROOT}work/${CORE_DIRECTORY}/${SRC_DIR}"
     rm -rf "$BASE_DIR"
 fi
 if [ "$SRC_DIR" != "" ]; then
