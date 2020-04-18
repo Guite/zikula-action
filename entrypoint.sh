@@ -40,10 +40,11 @@ mysqlCmd="mysql -h ${DB_HOST} --port ${DB_PORT} -u ${DB_USER} -p${DB_PASS} -e"
 echo "Starting process for ${MODULE_NAME}"
 
 APP_NAME="${VENDOR_NAME}${MODULE_NAME}Module"
-MODULE_PATH="${BASE_DIR}extensions/${VENDOR_NAME}/${MODULE_NAME}Module"
+EXTENSION_FOLDER="extensions"
 if [ "$CORE" != "ZK30" ] && [ "$CORE" != "ZK3DEV" ]; then
-    MODULE_PATH="${BASE_DIR}modules/${VENDOR_NAME}/${MODULE_NAME}Module"
+    EXTENSION_FOLDER="modules"
 fi
+MODULE_PATH="${BASE_DIR}${EXTENSION_FOLDER}/${VENDOR_NAME}/${MODULE_NAME}Module"
 LC_MODULE="$( echo "${MODULE_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
 TOOL_BIN_PATH="/tools/"
 TOOL_CONFIG_PATH="/tool-config/"
@@ -129,11 +130,7 @@ echo "Install ${APP_NAME}"
 unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
 if [ "$BASE_DIR" != "" ]; then
     cd "$BASE_DIR"
-    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
-        mv "extensions" "${WORKSPACE_ROOT}${SRC_DIR}"
-    else
-        mv "modules" "${WORKSPACE_ROOT}${SRC_DIR}"
-    fi
+    cp -R "${EXTENSION_FOLDER}" "${WORKSPACE_ROOT}${SRC_DIR}"
     cd "${WORKSPACE_ROOT}${SRC_DIR}"
     rm -rf "$BASE_DIR"
 fi
