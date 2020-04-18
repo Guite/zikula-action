@@ -52,14 +52,6 @@ echo "Install dependencies of ${APP_NAME}"
 cd "${MODULE_PATH}"
 composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 cd ${WORKSPACE_ROOT}
-if [ "$SRC_DIR" != "" ]; then
-    cd "${SRC_DIR}"
-    zip -qr "${APP_NAME}.zip" .
-    mv "${APP_NAME}.zip" ${WORKSPACE_ROOT}
-    cd ${WORKSPACE_ROOT}
-else
-    zip -qr "${APP_NAME}.zip" .
-fi
 mkdir -p "work" && cd "work/"
 
 CORE_BRANCH=""
@@ -134,6 +126,12 @@ if [ "$SRC_DIR" != "" ]; then
 fi
 echo "Install ${APP_NAME}"
 unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
+if [ "$BASE_DIR" != "" ]; then
+    cd "$BASE_DIR"
+    mv "extensions" "${WORKSPACE_ROOT}${SRC_DIR}"
+    cd "${WORKSPACE_ROOT}${SRC_DIR}"
+    rm -rf "$BASE_DIR"
+fi
 if [ "$SRC_DIR" != "" ]; then
     if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
         cd ..
