@@ -46,6 +46,7 @@ if [ "$CORE" != "ZK30" ] && [ "$CORE" != "ZK3DEV" ]; then
 fi
 MODULE_PATH="${BASE_DIR}${EXTENSION_FOLDER}/${VENDOR_NAME}/${MODULE_NAME}Module"
 LC_MODULE="$( echo "${MODULE_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
+LC_APP="$( echo "${APP_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
 TOOL_BIN_PATH="/tools/"
 TOOL_CONFIG_PATH="/tool-config/"
 
@@ -327,7 +328,8 @@ cd ${WORKSPACE_ROOT} && rm -rf "work/"
 if [ "$CREATE_ARTIFACTS" = true ]; then
     echo "Create build artifacts"
     cd "${WORKSPACE_ROOT}"
-    RELEASE_NAME="${APP_NAME}_v${APP_VERSION}"
+    #RELEASE_NAME="${APP_NAME}_v${APP_VERSION}"
+    RELEASE_NAME="${APP_NAME}"
     mkdir "${RELEASE_NAME}" && cd "${RELEASE_NAME}"
     unzip -q "${WORKSPACE_ROOT}${APP_NAME}.zip"
     rm -Rf .git
@@ -337,6 +339,21 @@ if [ "$CREATE_ARTIFACTS" = true ]; then
     if [ ! -d "$MODULE_PATH" ]; then
         MODULE_PATH="${BASE_DIR}modules/${VENDOR_NAME}/${MODULE_NAME}Module"
     fi
+
+    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
+        if [ -d "public/overrides/${LC_APP}" ]; then
+            cp -R "public/overrides/${LC_APP}/*" "${MODULE_PATH}/Resources/public/"
+            rm -rf "public"
+        fi
+        if [ -d "templates/bundles/${APP_NAME}" ]; then
+            cp -R "templates/bundles/${APP_NAME}/*" "${MODULE_PATH}/Resources/views/"
+            rm -rf "templates"
+        fi
+        if [ -f "README.md" ]; then
+            mv "README.md" "${MODULE_PATH}/README.md"
+        fi
+    fi
+
     cd "${MODULE_PATH}"
     rm -Rf "vendor"
     composer install --no-dev --no-progress --no-suggest --prefer-dist --optimize-autoloader
