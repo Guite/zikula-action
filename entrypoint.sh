@@ -19,7 +19,7 @@ DB_NAME=${11:-zikula}
 
 TOOLS=${12:-default}
 if [ "$TOOLS" = "default" ]; then
-    TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,phpcs,php-cs-fixer,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,phpinsights,'
+    TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,phpcs,php-cs-fixer,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,'
 fi
 
 # echo "Vendor: ${VENDOR_NAME}"
@@ -45,8 +45,8 @@ if [ "$CORE" != "ZK30" ] && [ "$CORE" != "ZK3DEV" ]; then
     EXTENSION_FOLDER="modules"
 fi
 MODULE_PATH="${BASE_DIR}${EXTENSION_FOLDER}/${VENDOR_NAME}/${MODULE_NAME}Module"
-LC_MODULE="$( echo "${MODULE_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
-LC_APP="$( echo "${APP_NAME}" | tr -s  '[:upper:]'  '[:lower:]' )"
+LC_MODULE="$( echo "${MODULE_NAME}" | tr '[:upper:]' '[:lower:]' )"
+LC_APP="$( echo "${APP_NAME}" | tr '[:upper:]' '[:lower:]' )"
 TOOL_BIN_PATH="/tools/"
 TOOL_CONFIG_PATH="/tool-config/"
 
@@ -336,18 +336,14 @@ if [ "$CREATE_ARTIFACTS" = true ]; then
     rm -Rf .github
 
     MODULE_PATH="${BASE_DIR}${EXTENSION_FOLDER}/${VENDOR_NAME}/${MODULE_NAME}Module"
-echo "M: ${MODULE_PATH}"
-ls -l
+
     if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
-        echo "A: public/overrides/${LC_APP}"
         if [ -d "public/overrides/${LC_APP}" ]; then
-            echo "public/overrides/${LC_APP}/* --> ${MODULE_PATH}/Resources/public/"
-            cp -R "public/overrides/${LC_APP}/*" "${MODULE_PATH}/Resources/public/"
+            cp -R "public/overrides/${LC_APP}/"* "${MODULE_PATH}/Resources/public/"
             rm -rf "public"
         fi
         if [ -d "templates/bundles/${APP_NAME}" ]; then
-            echo "templates/bundles/${APP_NAME}/* --> ${MODULE_PATH}/Resources/views/"
-            cp -R "templates/bundles/${APP_NAME}/*" "${MODULE_PATH}/Resources/views/"
+            cp -R "templates/bundles/${APP_NAME}/"* "${MODULE_PATH}/Resources/views/"
             rm -rf "templates"
         fi
         if [ -f "README.md" ]; then
