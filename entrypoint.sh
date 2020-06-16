@@ -335,17 +335,18 @@ if [ "$CREATE_ARTIFACTS" = true ]; then
     rm -Rf .git
     rm -Rf .github
 
-    MODULE_PATH="${BASE_DIR}extensions/${VENDOR_NAME}/${MODULE_NAME}Module"
-    if [ ! -d "$MODULE_PATH" ]; then
-        MODULE_PATH="${BASE_DIR}modules/${VENDOR_NAME}/${MODULE_NAME}Module"
-    fi
-
+    MODULE_PATH="${BASE_DIR}${EXTENSION_FOLDER}/${VENDOR_NAME}/${MODULE_NAME}Module"
+echo "M: ${MODULE_PATH}"
+ls -l
     if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
+        echo "A: public/overrides/${LC_APP}"
         if [ -d "public/overrides/${LC_APP}" ]; then
+            echo "public/overrides/${LC_APP}/* --> ${MODULE_PATH}/Resources/public/"
             cp -R "public/overrides/${LC_APP}/*" "${MODULE_PATH}/Resources/public/"
             rm -rf "public"
         fi
         if [ -d "templates/bundles/${APP_NAME}" ]; then
+            echo "templates/bundles/${APP_NAME}/* --> ${MODULE_PATH}/Resources/views/"
             cp -R "templates/bundles/${APP_NAME}/*" "${MODULE_PATH}/Resources/views/"
             rm -rf "templates"
         fi
