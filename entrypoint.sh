@@ -60,19 +60,22 @@ mkdir -p "work" && cd "work/"
 CORE_BRANCH=""
 CORE_VERSION=""
 CORE_DIRECTORY=""
-if [ "$CORE" = "ZK20" ] || [ "$CORE" = "ZK15" ]; then
+if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK20" ] || [ "$CORE" = "ZK15" ]; then
     if [ "$CORE" = "ZK15" ]; then
         CORE_BRANCH="1.5"
         CORE_VERSION="1.5.9"
-    else
+    elif [ "$CORE" = "ZK20" ]; then
         CORE_BRANCH="2.0"
         CORE_VERSION="2.0.15"
+    else
+        CORE_BRANCH="zikula"
+        CORE_VERSION="3.0.0"
     fi
     echo "Download Zikula Core version ${CORE_VERSION} release"
     wget "https://github.com/zikula/core/releases/download/${CORE_VERSION}/${CORE_BRANCH}.tar.gz"
     CORE_DIRECTORY=${CORE_BRANCH}
 else
-    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
+    if [ "$CORE" = "ZK3DEV" ]; then
         CORE_BRANCH="master"
         CORE_VERSION=${CORE_BRANCH}
     elif [ "$CORE" = "ZK2DEV" ]; then
@@ -92,11 +95,7 @@ if [ "$CORE" = "ZK15DEV" ] || [ "$CORE" = "ZK2DEV" ] || [ "$CORE" = "ZK30" ] || 
 fi
 
 consoleCmd="bin/console"
-if [ "$CORE" = "ZK20" ]; then
-    consoleCmd="bin/console"
-elif [ "$CORE" = "ZK15" ]; then
-    consoleCmd="app/console"
-elif [ "$CORE" = "ZK15DEV" ]; then
+if [ "$CORE" = "ZK15" ] || [ "$CORE" = "ZK15DEV" ]; then
     consoleCmd="app/console"
 fi
 
