@@ -34,7 +34,7 @@ This action downloads and installs a specific Zikula core version in order to ch
 
 ### Currently supported tools
 
-- **Checks (lint):** [phplint](https://github.com/overtrue/phplint), [parallel-lint](https://github.com/JakubOnderka/PHP-Parallel-Lint), [lint:container](https://symfony.com/blog/new-in-symfony-4-4-service-container-linter), [lint:yaml](https://symfony.com/doc/current/components/yaml.html#syntax-validation), [lint:twig](https://symfony.com/doc/current/templates.html#linting-twig-templates)
+- **Checks (lint):** [phplint](https://github.com/overtrue/phplint), [parallel-lint](https://github.com/php-parallel-lint/PHP-Parallel-Lint), [lint:container](https://symfony.com/blog/new-in-symfony-4-4-service-container-linter), [lint:yaml](https://symfony.com/doc/current/components/yaml.html#syntax-validation), [lint:twig](https://symfony.com/doc/current/templates.html#linting-twig-templates)
 - **Translations:** translations executes the `translation:extract` command
 - **Checks (coding style):** [phpcs](https://github.com/squizlabs/PHP_CodeSniffer), [php-cs-fixer](https://cs.symfony.com/)
 - **Tests:** [phpunit-bridge](https://symfony.com/doc/current/components/phpunit_bridge.html) (requires a file named `phpunit.xml.dist` in the module's root folder).

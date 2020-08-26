@@ -174,7 +174,7 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phplint,"* ]]; then
     ${TOOL_BIN_PATH}phplint "${MODULE_PATH}" --exclude="${VENDOR_PATH}" --configuration="${TOOL_CONFIG_PATH}phplint.yml"
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",parallel-lint,"* ]]; then
-    # see https://github.com/JakubOnderka/PHP-Parallel-Lint
+    # see https://github.com/php-parallel-lint/PHP-Parallel-Lint
     ${TOOL_BIN_PATH}parallel-lint --colors --exclude "${VENDOR_PATH}" "${MODULE_PATH}"
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",lint:container,"* ]]; then
