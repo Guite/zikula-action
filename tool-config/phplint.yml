@@ -1,8 +1,0 @@
-# see https://github.com/Overtrue/phplint
-path: ./src/
-jobs: 10
-cache: build/phplint.cache
-extensions:
-  - php
-exclude:
-  - vendor

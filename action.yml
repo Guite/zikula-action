@@ -43,7 +43,7 @@ inputs:
   tools:
     description: Comma-separated list of desired analysis tools
     required: false
-    default: ',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,phpcs,phpunit-bridge,security-checker,phploc,phpmetrics,php-coupling-detector,deprecation-detector,'
+    default: ',php-parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,php-cs-fixer,phpunit-bridge,security-checker,phploc,phpmetrics,php-coupling-detector,'
 runs:
   using: docker
   image: docker://guite/zikula-action

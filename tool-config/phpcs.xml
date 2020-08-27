@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<ruleset name="zikula">
-    <description>The coding standard for Zikula apps source code</description>
-    <rule ref="PSR1" />
-    <rule ref="PSR12" />
-
-    <!-- configurator: https://edorian.github.io/php-coding-standard-generator/#phpcs -->
-</ruleset>

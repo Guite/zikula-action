@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 if (!file_exists(__DIR__)) {
     exit(0);
 }
 
 // see also https://github.com/symfony/symfony/blob/master/.php_cs.dist
-// configurator: https://mlocati.github.io/php-cs-fixer-configurator/
 
 return PhpCsFixer\Config::create()
     ->setRules([
@@ -14,17 +15,25 @@ return PhpCsFixer\Config::create()
         '@PHPUnit75Migration:risky' => true,
         'php_unit_dedicate_assert' => ['target' => '5.6'],
         'array_syntax' => ['syntax' => 'short'],
-        'fopen_flags' => false,
-        'protected_to_private' => false,
         'combine_nested_dirname' => true,
         'concat_space' => ['spacing' => 'one'],
+        'fopen_flags' => false,
+        'mb_str_functions' => true,
+        'native_constant_invocation' => false,
+        'native_function_invocation' => false,
+        'no_short_bool_cast' => true,
         'no_whitespace_in_blank_line' => false, // due to generator
+        'nullable_type_declaration_for_default_null_value' => true,
         'phpdoc_align' => ['align' => 'left'],
+        'phpdoc_to_param_type' => true,
+        'phpdoc_to_return_type' => true,
+        'protected_to_private' => false,
+        'simplified_null_return' => true
     ])
     ->setRiskyAllowed(true)
     ->setFinder(
         PhpCsFixer\Finder::create()
-            ->in(__DIR__)
+            ->in(__DIR__ . '/src')
             ->append([__FILE__])
             ->notPath('#/Fixtures/#')
             ->notPath('#/vendor/#')

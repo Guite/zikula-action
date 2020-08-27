@@ -30,17 +30,17 @@ This action downloads and installs a specific Zikula core version in order to ch
 12. Comma-separated list of desired analysis tools or `all` for all tools.
     - Can be used to improve performance by skipping unwanted tools.
     - Ensure that it also contains a comma at the start and the end.
-    - Default value: `",phplint,parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,phpcs,phpunit-bridge,security-checker,phploc,phpmetrics,php-coupling-detector,deprecation-detector,"`.
+    - Default value: `",php-parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,php-cs-fixer,phpunit-bridge,security-checker,phploc,phpmetrics,php-coupling-detector,"`.
 
 ### Currently supported tools
 
-- **Checks (lint):** [phplint](https://github.com/overtrue/phplint), [parallel-lint](https://github.com/php-parallel-lint/PHP-Parallel-Lint), [lint:container](https://symfony.com/blog/new-in-symfony-4-4-service-container-linter), [lint:yaml](https://symfony.com/doc/current/components/yaml.html#syntax-validation), [lint:twig](https://symfony.com/doc/current/templates.html#linting-twig-templates)
+- **Checks (lint):** [php-parallel-lint](https://github.com/php-parallel-lint/PHP-Parallel-Lint), [lint:container](https://symfony.com/blog/new-in-symfony-4-4-service-container-linter), [lint:yaml](https://symfony.com/doc/current/components/yaml.html#syntax-validation), [lint:twig](https://symfony.com/doc/current/templates.html#linting-twig-templates)
 - **Translations:** translations executes the `translation:extract` command
-- **Checks (coding style):** [phpcs](https://github.com/squizlabs/PHP_CodeSniffer), [php-cs-fixer](https://cs.symfony.com/)
+- **Checks (coding style):** [php-cs-fixer](https://cs.symfony.com/)
 - **Tests:** [phpunit-bridge](https://symfony.com/doc/current/components/phpunit_bridge.html) (requires a file named `phpunit.xml.dist` in the module's root folder).
-- **Security:** [psecio-parse](https://github.com/psecio/parse), [security-checker](https://github.com/sensiolabs/security-checker)
-- **Info:** [churn](https://github.com/bmitch/churn-php), [phploc](https://github.com/sebastianbergmann/phploc), [dephpend](https://dephpend.com/), [phpmetrics](https://github.com/phpmetrics/PhpMetrics), [php-coupling-detector](https://akeneo.github.io/php-coupling-detector/)
-- **Checks (other):** [deprecation-detector](https://github.com/sensiolabs-de/deprecation-detector), [phpinsights](https://phpinsights.com/), [phpmnd](https://github.com/povils/phpmnd), [phpa](https://github.com/rskuipers/php-assumptions)
+- **Security:** [security-checker](https://github.com/sensiolabs/security-checker)
+- **Info:** [phploc](https://github.com/sebastianbergmann/phploc), [dephpend](https://dephpend.com/), [phpmetrics](https://github.com/phpmetrics/PhpMetrics), [php-coupling-detector](https://akeneo.github.io/php-coupling-detector/)
+- **Checks (other):** [phpmnd](https://github.com/povils/phpmnd), [phpa](https://github.com/rskuipers/php-assumptions)
 - **Checks (potentially running a bit longer):** [phpcpd](https://github.com/sebastianbergmann/phpcpd), [phpmd](https://github.com/phpmd/phpmd), [phan](https://github.com/phan/phan), [phpstan](https://github.com/phpstan/phpstan), [psalm](https://github.com/vimeo/psalm)
 
 ## Outputs

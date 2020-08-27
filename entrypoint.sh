@@ -19,7 +19,7 @@ DB_NAME=${11:-zikula}
 
 TOOLS=${12:-default}
 if [ "$TOOLS" = "default" ]; then
-    TOOLS=',phplint,parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,phpcs,php-cs-fixer,phpunit-bridge,security-checker,churn,phploc,phpmetrics,php-coupling-detector,deprecation-detector,'
+    TOOLS=',php-parallel-lint,lint:container,lint:yaml,lint:twig,translations,doctrine-info,php-cs-fixer,phpunit-bridge,security-checker,phploc,phpmetrics,php-coupling-detector,'
 fi
 
 # echo "Vendor: ${VENDOR_NAME}"
@@ -168,12 +168,7 @@ VENDOR_PATH="${MODULE_PATH}/vendor"
 
 echo "Running tools: $TOOLS"
 
-if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phplint,"* ]]; then
-    echo "Checks: PHP lint"
-    # see https://github.com/overtrue/phplint
-    ${TOOL_BIN_PATH}phplint "${MODULE_PATH}" --exclude="${VENDOR_PATH}" --configuration="${TOOL_CONFIG_PATH}phplint.yml"
-fi
-if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",parallel-lint,"* ]]; then
+if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",php-parallel-lint,"* ]]; then
     # see https://github.com/php-parallel-lint/PHP-Parallel-Lint
     ${TOOL_BIN_PATH}parallel-lint --colors --exclude "${VENDOR_PATH}" "${MODULE_PATH}"
 fi
@@ -215,13 +210,8 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",doctrine-info,"* ]]; then
     php ${consoleCmd} doctrine:schema:validate --skip-sync
 fi
 
-if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpcs,"* ]]; then
-    echo "Checks: coding style"
-    # see https://github.com/squizlabs/PHP_CodeSniffer
-    ${TOOL_BIN_PATH}phpcs --standard=${TOOL_CONFIG_PATH}phpcs.xml --extensions=php --ignore="${VENDOR_PATH}" "${MODULE_PATH}" --report=full
-fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",php-cs-fixer,"* ]]; then
-    echo "Checks: fix coding style"
+    echo "Checks: Coding style"
     # see https://cs.symfony.com/
     ${TOOL_BIN_PATH}php-cs-fixer fix --diff --dry-run --config "${TOOL_CONFIG_PATH}php_cs_fixer.dist" "${MODULE_PATH}"
 fi
@@ -235,11 +225,6 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpunit-bridge,"* ]]; then
     fi
 fi
 
-if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",psecio-parse,"* ]]; then
-    echo "Security: Parse"
-    # see https://github.com/psecio/parse
-    ${TOOL_BIN_PATH}psecio-parse scan --ignore-paths="${VENDOR_PATH}" "${MODULE_PATH}"
-fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",security-checker,"* ]]; then
     echo "Security: Sensiolabs"
     # see https://github.com/sensiolabs/security-checker
@@ -267,11 +252,6 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",php-coupling-detector,"* ]]; then
     ${TOOL_BIN_PATH}php-coupling-detector detect "${MODULE_PATH}" --config-file="${TOOL_CONFIG_PATH}phpcd.php"
 fi
 
-if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",deprecation-detector,"* ]]; then
-    echo "Checks: Deprecation Detector"
-    # see https://github.com/sensiolabs-de/deprecation-detector
-    ${TOOL_BIN_PATH}deprecation-detector check "${MODULE_PATH}" "${VENDOR_PATH}"
-fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpcpd,"* ]]; then
     echo "Checks: phpcpd / Copy paste detection"
     # see https://github.com/sebastianbergmann/phpcpd
@@ -298,11 +278,6 @@ if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpstan,"* ]]; then
     else
         ${TOOL_BIN_PATH}phpstan analyse -l=0 -c "${TOOL_CONFIG_PATH}phpstan_zk1.neon" "${MODULE_PATH}"
     fi
-fi
-if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phpinsights,"* ]]; then
-    echo "Checks: PHP Insights"
-    # see https://phpinsights.com/
-    ${TOOL_BIN_PATH}phpinsights analyse ./src -v --config-path="${TOOL_CONFIG_PATH}phpinsights.php" --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80
 fi
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",psalm,"* ]]; then
     echo "Checks: Psalm"
