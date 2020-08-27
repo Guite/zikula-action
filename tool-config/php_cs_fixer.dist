@@ -31,11 +31,11 @@ return PhpCsFixer\Config::create()
         'simplified_null_return' => true
     ])
     ->setRiskyAllowed(true)
-    ->setFinder(
+    /*->setFinder(
         PhpCsFixer\Finder::create()
             ->in(__DIR__ . '/src')
             ->append([__FILE__])
             ->notPath('#/Fixtures/#')
             ->notPath('#/vendor/#')
-    )
+    )*/
 ;
