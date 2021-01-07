@@ -14,7 +14,6 @@ return PhpCsFixer\Config::create()
         '@Symfony:risky' => true,
         '@PHPUnit75Migration:risky' => true,
         'php_unit_dedicate_assert' => ['target' => '5.6'],
-        'array_syntax' => ['syntax' => 'short'],
         'combine_nested_dirname' => true,
         'concat_space' => ['spacing' => 'one'],
         'fopen_flags' => false,
