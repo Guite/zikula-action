@@ -144,11 +144,8 @@ if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
     php ${consoleCmd} zikula:extension:install "${APP_NAME}"
 else
     php ${consoleCmd} bootstrap:bundles
-    if [ "$CORE" = "ZK30" ] || [ "$CORE" = "ZK3DEV" ]; then
-        ${mysqlCmd} "INSERT INTO ${DB_NAME}.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, coreCompatibility) VALUES (NULL, '${APP_NAME}', '3', '${MODULE_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}');"
-    else
-        ${mysqlCmd} "INSERT INTO ${DB_NAME}.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, core_min, core_max) VALUES (NULL, '${APP_NAME}', '3', '${APP_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}', '3.0.0');"
-    fi
+
+    ${mysqlCmd} "INSERT INTO ${DB_NAME}.modules (id, name, type, displayname, url, description, version, capabilities, state, securityschema, core_min, core_max) VALUES (NULL, '${APP_NAME}', '3', '${APP_NAME}', '${LC_MODULE}', 'Test module description', '${APP_VERSION}', 'N;', '3', 'N;', '${CORE_VERSION}', '3.0.0');"
 
     php ${consoleCmd} cache:warmup --env=prod --no-debug
 fi
