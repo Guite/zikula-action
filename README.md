@@ -38,7 +38,7 @@ This action downloads and installs a specific Zikula core version in order to ch
 - **Translations:** translations executes the `translation:extract` command
 - **Checks (coding style):** [php-cs-fixer](https://cs.symfony.com/)
 - **Tests:** [phpunit-bridge](https://symfony.com/doc/current/components/phpunit_bridge.html) (requires a file named `phpunit.xml.dist` in the module's root folder).
-- **Security:** [security-checker](https://github.com/sensiolabs/security-checker)
+- **Security:** [security-checker](https://github.com/fabpot/local-php-security-checker)
 - **Info:** [phploc](https://github.com/sebastianbergmann/phploc), [dephpend](https://dephpend.com/), [phpmetrics](https://github.com/phpmetrics/PhpMetrics), [php-coupling-detector](https://akeneo.github.io/php-coupling-detector/)
 - **Checks (other):** [phpmnd](https://github.com/povils/phpmnd), [phpa](https://github.com/rskuipers/php-assumptions)
 - **Checks (potentially running a bit longer):** [phpcpd](https://github.com/sebastianbergmann/phpcpd), [phpmd](https://github.com/phpmd/phpmd), [phan](https://github.com/phan/phan), [phpstan](https://github.com/phpstan/phpstan), [psalm](https://github.com/vimeo/psalm)

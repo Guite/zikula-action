@@ -224,8 +224,8 @@ fi
 
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",security-checker,"* ]]; then
     echo "Security: Sensiolabs"
-    # see https://github.com/sensiolabs/security-checker
-    ${TOOL_BIN_PATH}security-checker security:check "${MODULE_PATH}/composer.lock"
+    # see https://github.com/fabpot/local-php-security-checker
+    /usr/bin/local-php-security-checker
 fi
 
 if [ "$TOOLS" = "all" ] || [[ "$TOOLS" == *",phploc,"* ]]; then
